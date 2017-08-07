@@ -1,0 +1,25 @@
+md-card {
+  margin: 1em;
+}
+.task-record-form {
+  width: 20em;
+}
+
+.task-full-width {
+  width: 100%;
+}
+
+.top-padding {
+    padding-top: 2em;
+}
+
+#wrapper {
+    overflow: hidden; /* will contain if #first is longer than #second */
+}
+#first {
+    float:left; /* add this */
+}
+#second {
+    overflow: hidden; /* if you don't want #second to wrap below #first */
+    padding-left: 1em;
+}

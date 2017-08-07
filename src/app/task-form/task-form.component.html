@@ -1,0 +1,136 @@
+<md-toolbar color="primary">
+  Task Form
+</md-toolbar>
+<div class="container"
+     fxLayout
+     fxLayout.xs="column"
+     fxLayoutAlign="center"
+     fxLayoutGap="0"
+     fxLayoutGap.xs="0"
+     fxFlexFill>
+  <div class="item item-1" fxFlex="30%">
+    <md-card>
+      <md-card-content>
+        <form class="task-record-form-1">
+
+          <md-input-container>
+          <input mdInput required placeholder="Title">
+          </md-input-container>
+
+          <md-input-container class="task-full-width">
+            <textarea mdInput required type="text" #message maxlength="256" placeholder="Description"></textarea>
+            <md-hint align="start">{{message.value.length}} / 256</md-hint>
+          </md-input-container>
+
+          <div class="top-padding">
+            <md-select required placeholder="Department" [(ngModel)]="selectedDepartment" (ngModelChange)="checkDepartment()" name="department">
+              <md-option *ngFor="let department of departments" [value]="department.value">
+                {{department.viewValue}}
+              </md-option>
+            </md-select>
+          </div>
+
+          <div class="top-padding">
+            <md-select multiple required placeholder="Category" [(ngModel)]="selectedCategory" name="category">
+              <md-option *ngFor="let category of categories" [value]="category.value">
+                {{category.viewValue}}
+              </md-option>
+            </md-select>
+          </div>
+
+          <div class="top-padding">
+            <md-select placeholder="Policies/Procedure" [(ngModel)]="selectedProcedure" name="procedure">
+              <md-option *ngFor="let procedure of procedures" [value]="procedure.value">
+                {{procedure.viewValue}}
+              </md-option>
+            </md-select>
+          </div>
+
+          <div class="top-padding">
+            <md-select multiple placeholder="Notify Users" [(ngModel)]="selectedUser" name="user">
+              <md-option *ngFor="let user of users" [value]="user.value">
+                {{user.viewValue}}
+              </md-option>
+            </md-select>
+          </div>
+
+        </form>
+      </md-card-content>
+    </md-card>
+  </div>
+  <div class="item" fxFlex="30%">
+    <md-card id="item-2">
+      <md-card-content>
+        <form class="task-record-form-2">
+          <md-select required placeholder="Owner" [(ngModel)]="selectedOwner" name="owner">
+            <md-option *ngFor="let owner of owners" [value]="owner.value">
+              {{owner.viewValue}}
+            </md-option>
+          </md-select>
+
+          <div class="top-padding" id="wrapper">
+            <div id="first">
+              <md-select [disabled]="true" placeholder="Status" [(ngModel)]="selectedStatus" name="status">
+                <md-option *ngFor="let status of statuses" [value]="status.value">
+                  {{status.viewValue}}
+                </md-option>
+              </md-select>
+            </div>
+
+            <div id="second">
+              <md-select required placeholder="Performer" [(ngModel)]="selectedPerformer" (ngModelChange)="showNextItem()" name="performer">
+                <md-option *ngFor="let performer of performers" [value]="performer.value">
+                  {{performer.viewValue}}
+                </md-option>
+              </md-select>
+            </div>
+          </div>
+
+          <div class="top-padding">
+            <md-select placeholder="Approver" [(ngModel)]="selectedApprover" name="approver">
+                  <md-option *ngFor="let approver of approvers" [value]="approver.value">
+                    {{approver.viewValue}}
+                  </md-option>
+            </md-select>
+          </div>
+        </form>
+      </md-card-content>
+    </md-card>
+    <md-card>
+      <md-card-content>
+        <form class="frequency-form">
+          <md-select placeholder="Frequency" [(ngModel)]="selectedFrequency" name="frequency">
+            <md-option *ngFor="let frequency of frequencies" [value]="frequency.value">
+              {{frequency.viewValue}}
+            </md-option>
+          </md-select>
+
+          <div class="top-padding" id="wrapper">
+            <div id="first" fxFlex="50%">
+              <md-input-container>
+                <input mdInput [mdDatepicker]="startDate" placeholder="Start date">
+                <button mdSuffix [mdDatepickerToggle]="startDate"></button>
+              </md-input-container>
+              <md-datepicker #startDate></md-datepicker>
+            </div>
+
+            <div id="second">
+              <md-input-container>
+                <input mdInput [mdDatepicker]="endDate" placeholder="End date">
+                <button mdSuffix [mdDatepickerToggle]="endDate"></button>
+              </md-input-container>
+              <md-datepicker #endDate></md-datepicker>
+            </div>
+          </div>
+
+          <md-input-container class="task-full-width">
+            <input mdInput placeholder="Remind me in # days before due date" [formControl]="frequencyFormControl">
+            <md-error *ngIf="frequencyFormControl.hasError('pattern')">
+              Please enter a positive number no more than 150
+            </md-error>
+          </md-input-container>
+        </form>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>
