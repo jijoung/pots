@@ -12,17 +12,17 @@
       <div class="item item-1" fxFlex="50%">
             <form class="task-record-form-1">
 
-              <md-input-container class="task-semi-full-width">
+              <md-input-container class="task-full-width">
                 <input mdInput required placeholder="Title">
               </md-input-container>
 
-              <md-input-container class="task-semi-full-width">
+              <md-input-container class="task-full-width">
                 <textarea mdInput required type="text" #message maxlength="256" placeholder="Description"></textarea>
                 <md-hint align="start">{{message.value.length}} / 256</md-hint>
               </md-input-container>
 
               <div class="top-padding">
-                <md-select class="task-semi-full-width" required placeholder="Department" [(ngModel)]="selectedDepartment" (ngModelChange)="checkDepartment()" name="department">
+                <md-select class="task-full-width" required placeholder="Department" [(ngModel)]="selectedDepartment" (ngModelChange)="checkDepartment()" name="department">
                   <md-option *ngFor="let department of departments" [value]="department.value">
                     {{department.viewValue}}
                   </md-option>
@@ -30,14 +30,14 @@
               </div>
 
               <div class="top-padding">
-                <md-select class="task-semi-full-width" multiple required placeholder="Category" [(ngModel)]="selectedCategory" name="category">
+                <md-select class="task-full-width" multiple required placeholder="Category" [(ngModel)]="selectedCategory" name="category">
                   <md-option *ngFor="let category of categories" [value]="category.value">
                     {{category.viewValue}}
                   </md-option>
                 </md-select>
               </div>
               <div class="top-padding">
-                <md-select class="task-semi-full-width" multiple placeholder="Notify Users" [(ngModel)]="selectedUser" name="user">
+                <md-select class="task-full-width" multiple placeholder="Notify Users" [(ngModel)]="selectedUser" name="user">
                   <md-option *ngFor="let user of users" [value]="user.value">
                     {{user.viewValue}}
                   </md-option>
