@@ -1,5 +1,5 @@
 <md-toolbar color="primary">
-  Task Form
+  New Task
 </md-toolbar>
 <div class="container"
      fxLayout
@@ -13,8 +13,8 @@
       <md-card-content>
         <form class="task-record-form-1">
 
-          <md-input-container>
-          <input mdInput required placeholder="Title">
+          <md-input-container class="task-full-width">
+            <input mdInput required placeholder="Title">
           </md-input-container>
 
           <md-input-container class="task-full-width">
@@ -38,13 +38,13 @@
             </md-select>
           </div>
 
-          <div class="top-padding">
+          <!-- <div class="top-padding">
             <md-select placeholder="Policies/Procedure" [(ngModel)]="selectedProcedure" name="procedure">
               <md-option *ngFor="let procedure of procedures" [value]="procedure.value">
                 {{procedure.viewValue}}
               </md-option>
             </md-select>
-          </div>
+          </div> -->
 
           <div class="top-padding">
             <md-select multiple placeholder="Notify Users" [(ngModel)]="selectedUser" name="user">
@@ -78,7 +78,7 @@
             </div>
 
             <div id="second">
-              <md-select required placeholder="Performer" [(ngModel)]="selectedPerformer" (ngModelChange)="showNextItem()" name="performer">
+              <md-select required placeholder="Performer" [(ngModel)]="selectedPerformer" (ngModelChange)="checkPerformer()" name="performer">
                 <md-option *ngFor="let performer of performers" [value]="performer.value">
                   {{performer.viewValue}}
                 </md-option>
@@ -96,7 +96,7 @@
         </form>
       </md-card-content>
     </md-card>
-    <md-card>
+    <md-card id="item-3">
       <md-card-content>
         <form class="frequency-form">
           <md-select placeholder="Frequency" [(ngModel)]="selectedFrequency" name="frequency">
@@ -132,5 +132,6 @@
         </form>
       </md-card-content>
     </md-card>
+    <button md-raised-button class="button-right button-text" id="item-4">Submit Task</button>
   </div>
 </div>

@@ -8,6 +8,7 @@ import {
   MdToolbarModule,
   MdDatepickerModule,
   MdNativeDateModule,
+  MdButtonModule,
 } from '@angular/material';
 
 @NgModule({
@@ -19,7 +20,8 @@ import {
     MdSelectModule,
     MdToolbarModule,
     MdDatepickerModule,
-    MdNativeDateModule
+    MdNativeDateModule,
+    MdButtonModule
   ],
   exports: [
     MaterialModule,
@@ -28,7 +30,8 @@ import {
     MdSelectModule,
     MdToolbarModule,
     MdDatepickerModule,
-    MdNativeDateModule
+    MdNativeDateModule,
+    MdButtonModule
   ],
   declarations: []
 })

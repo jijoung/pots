@@ -104,10 +104,17 @@ export class TaskFormComponent implements OnInit {
 
   ngOnInit() {
     (<HTMLElement>document.getElementById('item-2')).style.display = 'none';
+    // (<HTMLElement>document.getElementById('item-3')).style.display = 'none';
+    // (<HTMLElement>document.getElementById('item-4')).style.display = 'none';
   }
 
   checkDepartment() {
     (<HTMLElement>document.getElementById('item-2')).style.display = '';
+  }
+
+  checkPerformer() {
+    (<HTMLElement>document.getElementById('item-3')).style.display = '';
+    (<HTMLElement>document.getElementById('item-4')).style.display = '';
   }
 
 }
