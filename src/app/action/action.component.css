@@ -1,0 +1,22 @@
+md-card {
+    margin: 1em;
+}
+
+button {
+    margin: 1em;
+    background-color: #26A69A;
+    color: white;
+}
+
+#left-indent {
+    margin-left: 1em;
+}
+
+/* #bottom {
+    position:relative;
+    margin-top:70%;
+} */
+
+/* .left-border {
+     border-left: 1px solid #E0E0E0; 
+} */

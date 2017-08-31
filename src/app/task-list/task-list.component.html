@@ -1,0 +1,69 @@
+<md-card class="filter">
+  <md-card-content>
+    <div class="container"
+        fxLayout
+        fxLayout.xs="column"
+        fxFlexFill>    
+      <div fxFlex="15%" id="top-padding">
+        <md-select class="full-width" multiple placeholder="Department" [(ngModel)]="selectedDepartment" 
+                   (ngModelChange)="getFilteredTask()" name="department">
+          <md-option *ngFor="let department of departments" [value]="department.departmentID">
+            {{department.name}}
+          </md-option>
+        </md-select>
+      </div>
+      <div fxFlex="15%" id="top-padding">
+        <md-select class="full-width" multiple placeholder="Category" [(ngModel)]="selectedCategory" 
+                   (ngModelChange)="getFilteredTask()" name="category">
+          <md-option *ngFor="let category of categories" [value]="category.categoryID">
+            {{category.name}}
+          </md-option>
+        </md-select>
+      </div>
+      <div fxFlex="10%" id="top-padding">     
+        <md-select class="full-width" multiple placeholder="Frequency" [(ngModel)]="selectedFrequency"
+                   (ngModelChange)="getFilteredTask()" name="frequency">
+          <md-option *ngFor="let frequency of frequencies" [value]="frequency.frequencyID">
+            {{frequency.period}}
+          </md-option>
+        </md-select>       
+      </div>
+      <div fxFlex="10%" id="top-padding">
+        <md-select class="full-width" multiple placeholder="Status" [(ngModel)]="selectedStatus" 
+                   (ngModelChange)="getFilteredTask()" name="status">
+          <md-option *ngFor="let status of statuses" [value]="status.statusID">
+            {{status.status}}
+          </md-option>
+        </md-select>
+      </div>
+      <div fxFlex="60%">
+        <div id="first" fxFlex="50%" style="padding-top:0.5em"> 
+          <md-input-container style="padding-left:1em; width:100%">
+            <input mdInput [mdDatepicker]="fromDate" placeholder="From" [(ngModel)]="selectedFromDate" 
+                   (ngModelChange)="getFilteredTask()" name="fromDate">
+            <button mdSuffix [mdDatepickerToggle]="fromDate"></button>
+          </md-input-container>
+          <md-datepicker #fromDate></md-datepicker>
+        </div>
+        <div id="second" fxFlex="50%" style="padding-top:0.5em"> 
+          <md-input-container style="padding-left:1em; width:100%">
+            <input mdInput [mdDatepicker]="toDate" placeholder="To" [(ngModel)]="selectedToDate" 
+                   (ngModelChange)="getFilteredTask()" name="toDate">
+            <button mdSuffix [mdDatepickerToggle]="toDate"></button>
+          </md-input-container>
+          <md-datepicker #toDate></md-datepicker>
+        </div>
+      </div>
+      <div fxFlex="10%" style="padding-top:1em">
+        <button style="float:right; color: #26A69A;" md-button (click)="clearSelections()">Clear</button>
+      </div>
+    </div>
+  </md-card-content>
+</md-card>
+
+<md-card> 
+  <md-card-content>
+    <rap-table [data] = "taskData" [cols] = "columnSettings" (onUpdate)="showTask($event)">
+    </rap-table> 
+  </md-card-content>
+</md-card>

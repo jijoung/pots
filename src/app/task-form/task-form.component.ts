@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { PotService } from '../pot.service'
+import { User } from '../user'
+import { ActivatedRoute, Router } from '@angular/router';
+import { PotsTask } from '../model/pots-task';
 
 const NUMBER_REGEX = /^(0?[0-9]?[0-9]|1[0-4][0-9]|15[0])$/;
 
@@ -9,112 +13,123 @@ const NUMBER_REGEX = /^(0?[0-9]?[0-9]|1[0-4][0-9]|15[0])$/;
   styleUrls: ['./task-form.component.css']
 })
 export class TaskFormComponent implements OnInit {
+  departments: Array<any>;
+  categories: Array<any>;
+  users: Array<any>;
+  owners: Array<any>;
+  reviewers: Array<any>;
+  performers: Array<any>;
+  approvers: Array<any>;
+  frequencies: Array<any>;
+
+  statuses: Array<any>;
+  selectedStatus: number;
+
+  titleInput: string;
+  descriptionInput: string;
   selectedDepartment: number;
   selectedCategory: number;
-  selectedProcedure: number;
   selectedUser: number;
   selectedOwner: number;
-  selectedStatus = 0;
   selectedPerformer: number;
+  selectedReviewer: number;
   selectedApprover: number;
   selectedFrequency: number;
+  selectedStartDate: Date;
+  selectedEndDate: Date;
+  remindInput: number;
 
-  // departmentSelected = false;
+  data: any;
+  task= new PotsTask();
+  endDate: any;
 
-  departments = [
-    {value: 0, viewValue: 'Financing Compliance'}
-  ];
-
-  categories = [
-    {value: 0, viewValue: 'Investor Communication'},
-    {value: 1, viewValue: 'Office Matters'},
-    {value: 2, viewValue: 'Human Resources'},
-    {value: 3, viewValue: 'Portfolio Reporting'},
-    {value: 4, viewValue: 'ABPCI Direct Lending Funding IV LLC'},
-    {value: 5, viewValue: 'ABPCI Direct Lending Funding III LLC'},
-    {value: 6, viewValue: 'SMA Requirements'},
-    {value: 7, viewValue: 'Internal Communication'},
-    {value: 8, viewValue: 'Potential Investor Presentation'},
-    {value: 9, viewValue: 'BDC Requirements'},
-  ];
-
-  procedures = [
-    {value: 0, viewValue: 'Procedure1'},
-    {value: 1, viewValue: 'Procedure2'},
-    {value: 2, viewValue: 'Procedure3'}
-  ];
-
-  users = [
-    {value: 0, viewValue: 'Briana Finkelstein'},
-    {value: 1, viewValue: 'Christopher Terry'},
-    {value: 2, viewValue: 'Liz Pyeatt'},
-    {value: 3, viewValue: 'Nicole Della Cava'},
-    {value: 4, viewValue: 'Roy Castromonte'},
-    {value: 5, viewValue: 'Virginia Kocher'},
-    {value: 6, viewValue: 'Wesley Raper'},
-  ];
-
-  owners = [
-    {value: 0, viewValue: 'Briana Finkelstein'},
-    {value: 1, viewValue: 'Christopher Terry'},
-    {value: 3, viewValue: 'Nicole Della Cava'},
-    {value: 4, viewValue: 'Roy Castromonte'},
-    {value: 5, viewValue: 'Virginia Kocher'},
-    {value: 6, viewValue: 'Wesley Raper'},
-  ];
-
-  statuses = [
-    {value: 0, viewValue: 'Open'},
-    {value: 1, viewValue: 'Close'}
-  ];
-
-  performers = [
-    {value: 0, viewValue: 'Briana Finkelstein'},
-    {value: 1, viewValue: 'Christopher Terry'},
-    {value: 3, viewValue: 'Nicole Della Cava'},
-    {value: 4, viewValue: 'Roy Castromonte'},
-    {value: 5, viewValue: 'Virginia Kocher'},
-    {value: 6, viewValue: 'Wesley Raper'},
-  ];
-
-  approvers = [
-    {value: 0, viewValue: 'Briana Finkelstein'},
-    {value: 1, viewValue: 'Christopher Terry'},
-    {value: 3, viewValue: 'Nicole Della Cava'},
-    {value: 4, viewValue: 'Roy Castromonte'},
-    {value: 5, viewValue: 'Virginia Kocher'},
-    {value: 6, viewValue: 'Wesley Raper'},
-  ];
-
-  frequencies = [
-    {value: 0, viewValue: 'One Time'},
-    {value: 1, viewValue: 'Daily'},
-    {value: 2, viewValue: 'Weekly'},
-    {value: 3, viewValue: 'Biweekly'},
-    {value: 4, viewValue: 'Monthly'},
-    {value: 5, viewValue: 'Quarterly'},
-    {value: 3, viewValue: 'Yearly'},
-  ];
-
-  constructor() { }
+  public constructor(
+    public potService: PotService,
+    public route: ActivatedRoute,
+    public router: Router
+  ) { }
 
   frequencyFormControl = new FormControl('', [
     Validators.pattern(NUMBER_REGEX)
   ]);
 
   ngOnInit() {
-    // (<HTMLElement>document.getElementById('item-2')).style.display = 'none';
-    // (<HTMLElement>document.getElementById('item-3')).style.display = 'none';
-    // (<HTMLElement>document.getElementById('item-4')).style.display = 'none';
+    this.Initialize();
   }
 
-  // checkDepartment() {
-  //   (<HTMLElement>document.getElementById('item-2')).style.display = '';
-  // }
+  Initialize() {
+    this.getUsers();
+    this.getDepartments();
+    this.getCategories();
+    this.getFrequencies();
+    this.getStatuses();
+  }
 
-  // checkPerformer() {
-  //   (<HTMLElement>document.getElementById('item-3')).style.display = '';
-  //   (<HTMLElement>document.getElementById('item-4')).style.display = '';
-  // }
+  getUsers() {
+    this.potService.potsGetUsers().subscribe(res => {
+      this.users = res;
+    })
+  }
+
+  getDepartments() {
+    this.potService.potsGetDepartments().subscribe(res => {
+      this.departments = res;
+    })
+  }
+
+  getCategories() {
+    this.potService.potsGetCategories().subscribe(res => {
+      this.categories = res;
+    })
+  }
+
+  getFrequencies() {
+    this.potService.potsGetFrequencies().subscribe(res => {
+      this.frequencies = res;
+    })
+  }
+
+  getStatuses() {
+    this.potService.potsGetStatuses().subscribe(res => {
+      this.statuses = res;
+      this.selectedStatus = res[0].statusID;
+    })
+  }
+
+  checkDepartment() {
+    this.potService.potsGetUserByDepartment(this.selectedDepartment).subscribe(res => {
+      this.owners = res;
+      this.performers = res;
+      this.reviewers = res;
+      this.approvers = res;
+    })
+  }
+
+  submitTask() {
+    if (this.selectedEndDate) {
+      this.endDate = this.selectedEndDate.getTime();
+    }  else {
+      this.endDate = this.selectedEndDate
+    }
+
+    this.task.title = this.titleInput;
+    this.task.description = this.descriptionInput;
+    this.task.departmentID = this.selectedDepartment;
+    this.task.categoryID = this.selectedCategory;
+    this.task.ownerID = this.selectedOwner;
+    this.task.taskStatus = this.selectedStatus;
+    this.task.performerID = this.selectedPerformer;
+    this.task.reviewerID = this.selectedReviewer;
+    this.task.approverID = this.selectedApprover;
+    this.task.frequencyID = this.selectedFrequency;
+    this.task.startDate = this.selectedStartDate.getTime();
+    this.task.endDate = this.endDate;
+    this.task.remindDays = this.remindInput;
+
+    //console.log(this.task);     
+  
+    this.potService.potsAddTask(this.task).subscribe();
+    this.router.navigate(['/task-list'])
+  }
 
 }

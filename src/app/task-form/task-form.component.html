@@ -1,7 +1,5 @@
-<md-toolbar color="primary">
-  New Task
-</md-toolbar>
-<md-card>
+ <md-card>
+  <md-card-title> Task Entry Form </md-card-title>
   <md-card-content> 
     <div class="container"
         fxLayout
@@ -11,35 +9,34 @@
         fxFlexFill>
       <div class="item item-1" fxFlex="50%">
             <form class="task-record-form-1">
-
               <md-input-container class="task-full-width">
-                <input mdInput required placeholder="Title">
+                <input mdInput required placeholder="Title" [(ngModel)]="titleInput" name="title">
               </md-input-container>
 
               <md-input-container class="task-full-width">
-                <textarea mdInput required type="text" #message maxlength="256" placeholder="Description"></textarea>
+                <textarea mdInput required type="text" #message maxlength="256" placeholder="Description" [(ngModel)]="descriptionInput" name="description"></textarea>
                 <md-hint align="start">{{message.value.length}} / 256</md-hint>
               </md-input-container>
 
               <div class="top-padding">
                 <md-select class="task-full-width" required placeholder="Department" [(ngModel)]="selectedDepartment" (ngModelChange)="checkDepartment()" name="department">
-                  <md-option *ngFor="let department of departments" [value]="department.value">
-                    {{department.viewValue}}
+                  <md-option *ngFor="let department of departments" [value]="department.departmentID">
+                    {{department.name}}
                   </md-option>
                 </md-select>
               </div>
 
               <div class="top-padding">
-                <md-select class="task-full-width" multiple required placeholder="Category" [(ngModel)]="selectedCategory" name="category">
-                  <md-option *ngFor="let category of categories" [value]="category.value">
-                    {{category.viewValue}}
+                <md-select class="task-full-width" required placeholder="Category" [(ngModel)]="selectedCategory" name="category">
+                  <md-option *ngFor="let category of categories" [value]="category.categoryID">
+                    {{category.name}}
                   </md-option>
                 </md-select>
               </div>
               <div class="top-padding">
                 <md-select class="task-full-width" multiple placeholder="Notify Users" [(ngModel)]="selectedUser" name="user">
-                  <md-option *ngFor="let user of users" [value]="user.value">
-                    {{user.viewValue}}
+                  <md-option *ngFor="let user of users" [value]="user.userId">
+                    {{user.firstName}} {{user.lastName}}
                   </md-option>
                 </md-select>
               </div>
@@ -47,43 +44,50 @@
       </div>
       <div class="item" fxFlex="50%">
             <form>
-              <md-select class="task-full-width" required placeholder="Owner" [(ngModel)]="selectedOwner" name="owner">
-                <md-option *ngFor="let owner of owners" [value]="owner.value">
-                  {{owner.viewValue}}
-                </md-option>
-              </md-select>
-
-              <div class="top-padding" id="wrapper">
-                <div id="first">
-                  <md-select placeholder="Status" [(ngModel)]="selectedStatus" name="status">
-                    <md-option [disabled]="true" *ngFor="let status of statuses" [value]="status.value">
-                      {{status.viewValue}}
+              <div class="small-padding" id="wrapper">
+                <div id="first" fxFlex="50%">
+                  <md-select class="task-full-width" required placeholder="Owner" [(ngModel)]="selectedOwner" name="owner">
+                    <md-option *ngFor="let owner of owners" [value]="owner.userID">
+                      {{owner.firstName}} {{owner.lastName}}
                     </md-option>
                   </md-select>
                 </div>
-
-                <div id="second">
-                  <md-select class="task-full-width" required placeholder="Performer" [(ngModel)]="selectedPerformer" (ngModelChange)="checkPerformer()" name="performer">
-                    <md-option *ngFor="let performer of performers" [value]="performer.value">
-                      {{performer.viewValue}}
+                  <!-- <md-select placeholder="Status" [(ngModel)]="selectedStatus" name="status">
+                    <md-option [disabled]="true" *ngFor="let status of statuses" [value]="status.statusid">
+                      {{status.status}}
+                    </md-option>
+                  </md-select> -->
+                <div id="second" fxFlex="50%">
+                  <md-select class="task-full-width" required placeholder="Performer" [(ngModel)]="selectedPerformer" name="performer">
+                    <md-option *ngFor="let performer of performers" [value]="performer.userID">
+                      {{performer.firstName}} {{performer.lastName}}
                     </md-option>
                   </md-select>
                 </div>
               </div>
 
-              <div class="top-padding">
-                <md-select class="task-full-width" placeholder="Approver" [(ngModel)]="selectedApprover" name="approver">
-                      <md-option *ngFor="let approver of approvers" [value]="approver.value">
-                        {{approver.viewValue}}
-                      </md-option>
-                </md-select>
+              <div class="top-padding" id="wrapper">
+                <div id="first" fxFlex="50%">
+                  <md-select class="task-full-width" placeholder="Reviewer" [(ngModel)]="selectedReviewer" name="reviewer">
+                        <md-option *ngFor="let reviewer of reviewers" [value]="reviewer.userID">
+                          {{reviewer.firstName}} {{reviewer.lastName}}
+                        </md-option>
+                  </md-select> 
+                </div>
+                <div id="second" fxFlex="50%">
+                  <md-select class="task-full-width" placeholder="Approver" [(ngModel)]="selectedApprover" name="approver">
+                        <md-option *ngFor="let approver of approvers" [value]="approver.userID">
+                          {{approver.firstName}} {{approver.lastName}}
+                        </md-option>
+                  </md-select>               
+                </div>
               </div>
             </form>
             <form class="frequency-form">
               <div class="top-padding">
-                <md-select class="task-full-width" placeholder="Frequency" [(ngModel)]="selectedFrequency" name="frequency">
-                  <md-option *ngFor="let frequency of frequencies" [value]="frequency.value">
-                    {{frequency.viewValue}}
+                <md-select class="task-full-width" required placeholder="Frequency" [(ngModel)]="selectedFrequency" name="frequency">
+                  <md-option *ngFor="let frequency of frequencies" [value]="frequency.frequencyID">
+                    {{frequency.period}}
                   </md-option>
                 </md-select>
               </div>
@@ -91,7 +95,7 @@
               <div class="top-padding" id="wrapper">
                 <div id="first" fxFlex="50%">
                   <md-input-container class="task-full-width">
-                    <input mdInput [mdDatepicker]="startDate" placeholder="Start date">
+                    <input mdInput [mdDatepicker]="startDate" required placeholder="Start date" [(ngModel)]="selectedStartDate" name="startDate">
                     <button mdSuffix [mdDatepickerToggle]="startDate"></button>
                   </md-input-container>
                   <md-datepicker #startDate></md-datepicker>
@@ -99,7 +103,7 @@
 
                 <div id="second" fxFlex="50%">
                   <md-input-container class="task-full-width">
-                    <input mdInput [mdDatepicker]="endDate" placeholder="End date">
+                    <input mdInput [mdDatepicker]="endDate" placeholder="End date" [(ngModel)]="selectedEndDate" name="endDate">
                     <button mdSuffix [mdDatepickerToggle]="endDate"></button>
                   </md-input-container>
                   <md-datepicker #endDate></md-datepicker>
@@ -107,14 +111,19 @@
               </div>
 
               <md-input-container class="task-full-width">
-                <input mdInput placeholder="Remind me in # days before due date" [formControl]="frequencyFormControl">
+                <input mdInput placeholder="Remind me in # days before due date" [formControl]="frequencyFormControl" [(ngModel)]="remindInput" name="remind">
                 <md-error *ngIf="frequencyFormControl.hasError('pattern')">
                   Please enter a positive number no more than 150
                 </md-error>
               </md-input-container>
             </form>
-        <button md-raised-button class="button-right button-text" id="item-4">Submit Task</button>
+        <button md-raised-button class="button-right button-text" id="item-4" (click)="submitTask()">Submit Task</button>
       </div>
     </div>
   </md-card-content>
 </md-card>
+<!-- <ul>
+  <li *ngFor="let user of members">
+    {{user.userid}} {{user.username}}
+  </li>
+</ul>   -->

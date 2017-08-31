@@ -1,0 +1,67 @@
+<md-card>
+  <md-card-title>Task Action</md-card-title>
+  <md-card-content>
+    <div class="container"
+      fxLayout
+      fxLayout.xs="column"
+      fxLayoutAlign="left"
+      fxLayoutGap="2em"
+      fxFlexFill>
+      <div fxFlex="25%">
+        <md-list dense>
+          <h3 md-subheader>Title</h3>
+          <md-list-item><strong>{{task.title}}</strong></md-list-item>
+          <h3 md-subheader>Description</h3>
+          <md-list-item><strong>{{task.description}}</strong></md-list-item>
+          <div id="wrapper">
+            <div id="first" fxFlex="25%">
+              <md-list-item>Owner:</md-list-item>
+              <md-list-item>Performer:</md-list-item>
+              <md-list-item>Reviewer:</md-list-item>
+              <md-list-item>Approver:</md-list-item>
+            </div>
+            <div id="second" fxFlex="75%">
+              <md-list-item>{{task.owner}}</md-list-item>
+              <md-list-item>{{task.performer}}</md-list-item>
+              <md-list-item>{{task.reviewer}}</md-list-item>
+              <md-list-item>{{task.approver}}</md-list-item>
+            </div>
+          </div>
+        </md-list>
+      </div>
+      <md-divider></md-divider>
+      <div fxFlex="30%">
+        <md-list dense>
+          <div id="wrapper">
+            <div id="first" fxFlex="35%">
+              <md-list-item>Due date:</md-list-item>
+              <md-list-item>Completed date:</md-list-item>
+              <md-list-item>Last update:</md-list-item>
+              <md-list-item>Frequency:</md-list-item>
+              <md-list-item>Category:</md-list-item>
+              <md-list-item>Current state:</md-list-item>
+            </div>
+            <div id="second" fxFlex="65%">
+              <md-list-item>{{task.due}}</md-list-item>
+              <md-list-item>{{task.completed}}</md-list-item>
+              <md-list-item>{{task.updated}}</md-list-item>
+              <md-list-item>{{task.frequency}}</md-list-item>
+              <md-list-item>{{task.category}}</md-list-item>
+              <md-list-item><strong>{{task.state}}</strong></md-list-item>
+            </div>
+          </div>
+          <md-input-container class="full-width" id="left-indent">
+            <input mdInput #notes maxlength="256" placeholder="Notes">
+            <md-hint align="end">{{notes.value.length}} / 256</md-hint>
+          </md-input-container>
+        </md-list>
+      </div>
+      <div class="center" fxFlex="20%">
+          <button class="full-width" md-raised-button [disabled]="!isApprover" (click)="approve()">Approve</button>
+          <button color="warn" class="full-width" md-raised-button [disabled]="!isApprover" (click)="disapprove()">Disapprove</button>
+          <button class="full-width" md-raised-button [disabled]="!isPerformer" (click)="complete()">Complete</button>
+          <button class="full-width" md-raised-button>Update</button>
+      </div>
+    </div>
+  </md-card-content>
+</md-card>

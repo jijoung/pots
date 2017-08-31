@@ -1,6 +1,7 @@
-md-card {
+ md-card {
   margin: 1em;
 }
+
 .task-record-form {
   width: 20em;
 }
@@ -13,13 +14,14 @@ md-card {
     padding-top: 2em;
 }
 
-#wrapper {
-    overflow: hidden; /* will contain if #first is longer than #second */
+.small-padding {
+    padding-top: 1em;
 }
+
 #first {
-    float:left; /* add this */
+    padding-right: 1em;
 }
+
 #second {
-    overflow: hidden; /* if you don't want #second to wrap below #first */
     padding-left: 1em;
-}
+} 

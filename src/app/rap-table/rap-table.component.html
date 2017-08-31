@@ -1,0 +1,26 @@
+<md-input-container floatPlaceholder="never">
+      <input mdInput #filter placeholder="Search">
+</md-input-container>
+<button style="float: right;"  md-button (click)="exportExcel()">
+  <i mdTooltip="Export to Excel" mdTooltipPosition="left" class="material-icons" 
+  style ="font-size:24px">get_app</i>
+</button>
+<md-table #table [dataSource]="dataSource" mdSort>
+	<div *ngFor = "let col of cols">
+    <ng-container [cdkColumnDef] ="col.attribute">
+      <md-header-cell *cdkHeaderCellDef md-sort-header> {{col.header}} </md-header-cell>
+      <md-cell *cdkCellDef="let row"> 
+        <span *ngIf ="!col.date">{{ row[col.attribute] }}</span> 
+        <span *ngIf ="col.date"> {{ row[col.attribute] | date: 'MM/dd/yyyy' }}</span>
+      </md-cell>
+    </ng-container>
+	</div>
+	<!-- <ng-container cdkColumnDef ="removable" *ngIf = "removable">
+		<md-header-cell *cdkHeaderCellDef></md-header-cell>
+    <md-cell *cdkCellDef="let row"></md-cell>
+    <md-cell class="remove-button" *cdkCellDef="let row"><button md-icon-button (click)="removeRow(row)"><i class="material-icons md-light" mdTooltip="Delete Entry" mdTooltipPosition="above">remove_circle</i></button></md-cell>
+	</ng-container>		 -->
+	 <md-header-row style="height:2.7em" *cdkHeaderRowDef="displayedColumns"></md-header-row>
+     <md-row style="height:4em" *cdkRowDef="let row; columns: displayedColumns; let index = index; let isOdd= odd;" 
+       (mouseenter) = "hoverRow(index)" (click)="updateRow(row)" [class.mat-elevation-z24]="index == hoveredRow" [class.odd] = "isOdd"></md-row>
+</md-table>

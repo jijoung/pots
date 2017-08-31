@@ -1,0 +1,26 @@
+<div class="center-element">
+  <md-card>
+    <md-card-header>
+      <md-card-title id="title">Sign in</md-card-title>
+    </md-card-header>
+    <form (submit)="CheckUser()">
+      <md-card-content>     
+          <md-input-container class="full-width">
+            <input mdInput placeholder="ID" [(ngModel)]="inputID" name="id" [formControl]="idFormControl">
+            <md-error *ngIf="idFormControl.hasError('required')">
+              ID is required
+            </md-error>
+          </md-input-container><br>
+          <md-input-container class="full-width">
+            <input type="password" mdInput placeholder="Password" [formControl]="passwordFormControl" [(ngModel)]="inputPassword" name="password">
+            <md-error *ngIf="passwordFormControl.hasError('required')">
+              password is required
+            </md-error>
+          </md-input-container>     
+      </md-card-content>
+      <div class="center" id="text-color">
+        <button type="submit" md-button>Login</button>
+      </div>
+    </form>
+  </md-card>
+</div>

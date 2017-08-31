@@ -1,0 +1,26 @@
+img {
+    padding-right: 1em;
+}
+.fill-remaining-space {
+    flex: 1 1 auto;
+}
+.menu-sidenav {
+  width: 40%;
+}
+.sidenav-button {
+    width: 100%;
+    text-align: left;
+}
+.white {
+    color: white;
+}
+#wrapper {
+    overflow: hidden; 
+}
+#first {
+    float:left;
+}
+#second {
+    /* overflow: hidden;  */
+    padding-left: 1em;
+} 

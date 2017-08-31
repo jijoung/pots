@@ -1,0 +1,16 @@
+:host {
+    /* flex-grow: 1; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+md-card {
+    width: 25em;
+    position:relative;
+    margin-top:40%;
+    margin-bottom: 100%;
+    padding-left: 2em;
+    padding-right: 2em;
+    padding-top: 4em;
+}

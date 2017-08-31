@@ -1,0 +1,21 @@
+mdTooltipClass {
+    white-space:pre-line;
+}
+
+md-checkbox {
+    margin-right: 1em;
+}
+
+.mat-tooltip {
+    white-space:pre-line;
+}
+
+.filter {
+    margin: 1em;
+    padding-top: 1em;
+}
+
+#top-padding {
+    margin-top: 1.5em;
+    margin-right: 1.5em;
+}  

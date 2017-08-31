@@ -1,17 +1,39 @@
- /* @import "~@angular/material/prebuilt-themes/indigo-pink.css";  */
- body {
-     font-family: Arial, Helvetica, sans-serif;
- }
+@import "~angular-calendar/dist/css/angular-calendar.css";
 
- .button-right {
-     float: right;
- }
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
 
- .button-text {
-    color: teal;
- }
+.button-right {
+    float: right;
+}
 
- .button-right.button-text {
-     float: right;
-     color: teal;
- }
+.center {
+    text-align: center;
+}
+
+.button-text {
+    color: #26a69a;
+}
+
+.button-right.button-text {
+    float: right;
+    color: #26a69a;
+}
+
+.title {
+    color: white;
+}
+
+.full-width {
+    width: 100%;
+}
+
+#title {
+    color: #26a69a;
+    font-size: 1.5em;
+}
+
+#text-color {
+    color: #26a69a;
+}

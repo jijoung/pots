@@ -1,0 +1,19 @@
+md-card {
+    margin: 0;
+    padding: 0;
+}
+
+md-raised-button {
+    margin: 1em;
+    background-color: #26A69A;
+    color: white;
+}
+
+.filter {
+    margin:1em;
+    padding-top: 1em;
+}
+
+ #top-padding {
+    margin: 1.5em;
+} 

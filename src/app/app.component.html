@@ -1,2 +1,54 @@
-<router-outlet></router-outlet>
+<md-toolbar color="primary">
+  <div class="title">
+    <div fxShow="false" fxShow.gt-sm>
+        <button md-button routerLink="/">
+        <img src="http://content.acml.com/internal/abrebrand/resources/logos/web/AB_CORP.jpg" alt="Logo">
+            Portfolios & Operations Technology
+        </button>
+    </div>
+    <div fxHide="false" fxHide.gt-sm>
+        <button md-button routerLink="/">
+        <img src="http://content.acml.com/internal/abrebrand/resources/logos/web/AB_CORP.jpg" alt="Logo">
+            POT
+        </button>
+    </div>
+  </div>
+  <span class="fill-remaining-space"></span>
+  <div class="title" fxLayout="row" fxShow="false" fxShow.gt-sm>
+    <button md-button routerLink="/task-form"> New Task </button>
+    <button md-button routerLink="/task-list"> Task List</button>
+    <button md-button routerLink="/task-calendar"> Calendar </button>
+  </div>
+  <button md-button (click)="sidenav.open()" fxHide="false" fxHide.gt-sm>
+    <md-icon class="white">menu</md-icon>
+  </button>
+</md-toolbar>
+<md-sidenav-container>
+    <md-sidenav align="end" #sidenav class="menu-sidenav">
+        <md-list>
+            <md-list-item>
+                <button md-button class="sidenav-button" routerLink="/" (click)="sidenav.close()"> 
+                    <md-icon>home</md-icon> Home
+                </button>
+            </md-list-item>
+            <md-list-item>
+                <button md-button class="sidenav-button" routerLink="/task-form" (click)="sidenav.close()">
+                    <md-icon>playlist_add</md-icon> New Task 
+                </button>
+            </md-list-item>
+            <md-list-item>
+                <button md-button class="sidenav-button" routerLink="/task-list" (click)="sidenav.close()"> 
+                    <md-icon>list</md-icon> Task List
+                </button>
+            </md-list-item>
+            <md-list-item>
+                <button md-button class="sidenav-button" routerLink="/task-calendar" (click)="sidenav.close()"> 
+                    <md-icon>today</md-icon> Calendar
+                </button>
+            </md-list-item>
+        </md-list>
+    </md-sidenav>
+    <router-outlet></router-outlet>
+</md-sidenav-container>
+
 

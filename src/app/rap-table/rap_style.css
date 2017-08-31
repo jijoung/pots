@@ -1,0 +1,49 @@
+md-input-container {
+	padding-left: 2em;
+	width: 50%;
+}
+
+/* md-cell {
+	padding-right: 2em;
+} */
+.mat-cell {
+	font-size: 0.9em;
+	padding-left: 0.5em;
+}
+
+.mat-header-cell {
+	width: 100%;
+	padding-left: 0.5em;
+}
+
+.remove-button{
+    width:10px;
+	max-width:40px;
+}
+
+.mat-table {
+  overflow: auto;
+}
+
+.mat-row{
+	overflow: hidden;
+    height: 60px;
+    max-height:300px;
+	cursor: pointer; 
+	cursor: hand;
+    /*padding-top: 20px;*/
+}
+
+.mat-row:hover{
+	background-color: #E0F2F1;
+}
+
+.odd{
+	 background-color: #F8F8F8;
+}
+
+.center{
+	float: none;
+     margin-left: auto;
+     margin-right: auto;
+}
