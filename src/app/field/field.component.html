@@ -1,0 +1,53 @@
+<div class="container"
+  fxLayout
+  fxLayout.xs="column"
+  fxLayoutAlign="center"
+  fxLayoutGap="2em"
+  fxFlexFill>
+  <div fxFlex="50%">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Departments
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form class="department-form" (ngSubmit)="addDepartment(fd.value)" #fd="ngForm">
+        <mat-form-field>
+          <input matInput placeholder="Add Department" [(ngModel)]="name" name="name">
+        </mat-form-field>
+        <button type="submit" mat-icon-button><mat-icon>add</mat-icon></button>
+      </form>
+      <mat-list dense>
+          <mat-list-item *ngFor="let department of departments"> 
+            <mat-icon matListIcon>label_outline</mat-icon>{{department.name}}
+          </mat-list-item>
+        </mat-list>
+    </mat-expansion-panel>
+  </div>
+  <div fxFlex="50%">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Categories
+        </mat-panel-title>
+      </mat-expansion-panel-header> 
+      <form class="category-form" (ngSubmit)="addCategory(f.value)" #f="ngForm">
+        <mat-form-field>
+          <input matInput placeholder="Add Category" [(ngModel)]="category" name="category">
+        </mat-form-field>
+        <button type="submit" mat-icon-button><mat-icon>add</mat-icon></button>
+      </form>
+      <mat-list dense>
+        <mat-list-item *ngFor="let category of categories">
+          <mat-icon matListIcon>label_outline</mat-icon>{{category.name}}
+        </mat-list-item>
+      </mat-list>
+    </mat-expansion-panel>
+  </div>
+</div>
+<mat-card>
+  <mat-card-subtitle>Task List Table</mat-card-subtitle>
+  <rap-table [cols]="columnSettings" [selectedCols]="selectedColumns" (onSave)="showColumns($event)">
+  </rap-table> 
+</mat-card>
+

@@ -1,145 +1,133 @@
-<md-card class="filter">
-  <md-card-content>
+<mat-card class="filter">
+  <mat-card-content>
     <div class="container"
         fxLayout
         fxLayout.xs="column"
         fxFlexFill>    
-      <div fxFlex="20%" id="top-padding">
-        <md-select class="full-width" multiple placeholder="Department" [(ngModel)]="selectedDepartment" 
+      <mat-form-field fxFlex="20%">
+        <mat-select class="full-width" multiple placeholder="Department" [(ngModel)]="selectedDepartment" 
                    (ngModelChange)="getFilteredTask()" name="department">
-          <md-option *ngFor="let department of departments" [value]="department.departmentID">
+          <mat-option *ngFor="let department of departments" [value]="department.departmentID">
             {{department.name}}
-          </md-option>
-        </md-select>
-      </div>
-      <div fxFlex="20%" id="top-padding">
-        <md-select class="full-width" multiple placeholder="Category" [(ngModel)]="selectedCategory" 
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field fxFlex="20%">
+        <mat-select class="full-width" multiple placeholder="Category" [(ngModel)]="selectedCategory" 
                    (ngModelChange)="getFilteredTask()" name="category">
-          <md-option *ngFor="let category of categories" [value]="category.categoryID">
+          <mat-option *ngFor="let category of categories" [value]="category.categoryID">
             {{category.name}}
-          </md-option>
-        </md-select>
-      </div>
-      <div fxFlex="15%" id="top-padding">     
-        <md-select class="full-width" multiple placeholder="Frequency" [(ngModel)]="selectedFrequency"
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field fxFlex="20%">     
+        <mat-select class="full-width" multiple placeholder="Frequency" [(ngModel)]="selectedFrequency"
                    (ngModelChange)="getFilteredTask()" name="frequency">
-          <md-option *ngFor="let frequency of frequencies" [value]="frequency.frequencyID">
+          <mat-option *ngFor="let frequency of frequencies" [value]="frequency.frequencyID">
             {{frequency.period}}
-          </md-option>
-        </md-select>       
-      </div>
-      <div fxFlex="15%" id="top-padding">
-        <md-select class="full-width" multiple placeholder="Status" [(ngModel)]="selectedStatus" 
+          </mat-option>
+        </mat-select>       
+      </mat-form-field>
+      <mat-form-field fxFlex="20%">
+        <mat-select class="full-width" multiple placeholder="Status" [(ngModel)]="selectedStatus" 
                    (ngModelChange)="getFilteredTask()" name="status">
-          <md-option *ngFor="let status of statuses" [value]="status.statusID">
+          <mat-option *ngFor="let status of statuses" [value]="status.statusID">
             {{status.status}}
-          </md-option>
-        </md-select>
-      </div>
-      <div fxFlex="20%" style="padding-top:0.5em; padding-right:1em;">
-        <md-input-container class="full-width">
-            <input mdInput placeholder="Name" [mdAutocomplete]="auto" [formControl]="userCtrl" 
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field fxFlex="20%">
+            <input matInput placeholder="Name" [matAutocomplete]="auto" [formControl]="userCtrl" 
              [(ngModel)]="selectedUser" (ngModelChange)="checkUserId()">
-        </md-input-container>
-        <md-autocomplete #auto="mdAutocomplete" [displayWith]="displayFn">
-            <md-option *ngFor="let user of filteredUsers | async" [value]="user">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+            <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
             {{user.firstName}} {{user.lastName}}
-            </md-option>
-        </md-autocomplete>
-      </div>
-      <!-- <div fxFlex="20%" id="top-padding">
-         <md-checkbox color="primary" [(ngModel)]="checkOwner" (ngModelChange)="getFilteredTask()">Owner</md-checkbox>
-        <md-checkbox color="primary" [(ngModel)]="checkPerformer" (ngModelChange)="getFilteredTask()">Performer</md-checkbox> 
-      </div> -->
-      <div fxFlex="5%" style="padding-top:1em">
-        <button style="float:right; color: #26A69A;" md-button (click)="clearSelections()">Clear</button>
-      </div>
+            </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+        <button style="float:right" mat-button color="primary" (click)="clearSelections()">Clear</button>
     </div>
-  </md-card-content>
-</md-card>
+  </mat-card-content>
+</mat-card>
 
 <ng-template #customCellTemplate let-day="day" let-locale="locale">
     <div>
     <span class="cal-day-number" style="margin:0; padding:0">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
     </div>
-    <md-nav-list dense>
-        <a md-list-item style="height:auto;" *ngFor="let event of day.events" mdTooltip="{{event.meta.task.description}}"
-            [mdTooltipPosition]="position" (click)="showTask(event)">
-            <md-icon *ngIf="event.meta.task.categoryId===1">perm_phone_msg</md-icon>
-            <md-icon *ngIf="event.meta.task.categoryId===2">work</md-icon>
-            <md-icon *ngIf="event.meta.task.categoryId===3">group</md-icon>
-            <md-icon *ngIf="event.meta.task.categoryId===4">equalizer</md-icon>
-            <md-icon *ngIf="event.meta.task.categoryId===5">attach_money</md-icon>
-            <md-icon *ngIf="event.meta.task.categoryId===6">attach_money</md-icon>
-            <md-icon *ngIf="event.meta.task.categoryId===7">assignment_turned_in</md-icon>
-            <md-icon *ngIf="event.meta.task.categoryId===8">forum</md-icon>
-            <md-icon *ngIf="event.meta.task.categoryId===9">slideshow</md-icon>
-            <md-icon *ngIf="event.meta.task.categoryId===10">playlist_add_check</md-icon>
-            <span style="padding-left:0.5em">{{ event.title }}</span> 
+    <mat-nav-list dense>
+        <a mat-list-item style="height:auto;" *ngFor="let event of day.events" [style.color]="event.meta.task.color" matTooltip="{{event.meta.task.description}}"
+            [matTooltipPosition]="position" (click)="showTask(event)">
+            <mat-icon *ngIf="event.meta.task.icon">{{ event.meta.task.icon }}</mat-icon>
+            <img *ngIf="event.meta.task.img" src="{{event.meta.task.img}}" height="20">
+            <span style="padding-left:0.5em"><div class="long-text">{{ event.title }}</div></span> 
         </a>
-    </md-nav-list> 
+    </mat-nav-list> 
 </ng-template>
 
 <ng-template #loading>
-  <div class="text-center">
-    <i class="fa fa-spin fa-spinner fa-5x"></i>
-    <br>
-    Loading tasks...
+  <div class="center-element">
+    <mat-spinner></mat-spinner>
   </div>
 </ng-template>
 
-<md-card>
-  <md-card-content>
+<mat-card>
+  <mat-card-content>
     <div class="container"
         fxLayout
         fxLayout.xs="column"
         fxLayoutAlign="center"
         fxFlexFill>
       <div fxFlex=25%>
+        <button mat-button (click)="view = 'week'">Week</button>
+        <span>|</span>
+        <button mat-button (click)="view = 'month'">Month</button>
       </div>
       <div fxFlex="50%" fxLayoutAlign="center">
         <h4>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h4>
       </div>  
       <div fxFlex="25%" fxLayoutAlign="center">
-        <span mdTooltip="Previous">
-            <button md-button
+        <span matTooltip="Previous">
+            <button mat-button
             mwlCalendarPreviousView
             [view]="view"
             [(viewDate)]="viewDate">
-            <md-icon>navigate_before</md-icon>
+            <mat-icon>navigate_before</mat-icon>
             </button>
         </span>
-        <span mdTooltip="Today">
-            <button md-button
+        <span matTooltip="Today">
+            <button mat-button
             mwlCalendarToday
             [(viewDate)]="viewDate">
-            <md-icon>today</md-icon>
+            <mat-icon>today</mat-icon>
             </button>
         </span>
-        <span mdTooltip="Next">
-            <button md-button
+        <span matTooltip="Next">
+            <button mat-button
             mwlCalendarNextView
             [view]="view"
             [(viewDate)]="viewDate">
-            <md-icon>navigate_next</md-icon>
+            <mat-icon>navigate_next</mat-icon>
             </button>
         </span>
       </div>
     </div>
     <div *ngIf="events$ | async; else loading; let events">
+      <div [ngSwitch]="view">
         <mwl-calendar-month-view
-            [@.disabled]="true"
-            [viewDate]="viewDate"
-            [events]="events"
-            [cellTemplate]="customCellTemplate">
+          *ngSwitchCase="'month'"
+          [@.disabled]="true"
+          [viewDate]="viewDate"
+          [events]="events"
+          [cellTemplate]="customCellTemplate">
         </mwl-calendar-month-view>
+        <mwl-calendar-week-view
+          *ngSwitchCase="'week'"
+          [viewDate]="viewDate"
+          [events]="events"
+          [refresh]="refresh"
+          (eventClicked)="showTask($event.event)">
+        </mwl-calendar-week-view>
+      </div>
     </div>
-  </md-card-content>
-</md-card>
-
-<!-- 
-[cellTemplate]="customCellTemplate"
-[activeDayIsOpen]="activeDayIsOpen"
-(dayClicked)="dayClicked($event.day)"
-(eventClicked)="handleEvent('Clicked', $event.event)" 
--->
+  </mat-card-content>
+</mat-card>

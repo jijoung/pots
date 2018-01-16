@@ -1,0 +1,47 @@
+<div *ngIf="isAdmin">
+  <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Add User
+      </mat-panel-title>
+      <mat-panel-description>
+        Click to add a new user
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <form class="user-form" (ngSubmit)="addUser(f.value)" #f="ngForm">
+      <mat-form-field>
+        <input matInput required placeholder="Username" [(ngModel)]="userName" name="userName">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput required placeholder="First name" [(ngModel)]="firstName" name="firstName">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput required placeholder="Last name" [(ngModel)]="lastName" name="lastName">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Email" [formControl]="emailFormControl">
+        <mat-error *ngIf="emailFormControl.hasError('pattern')">
+          Please enter a valid email address
+        </mat-error>
+      </mat-form-field>
+      <!-- <mat-select required placeholder="Domain" [(ngModel)]="selectedDomain" name="domainID">
+        <mat-option *ngFor="let domain of domains" [value]="domain.domainID">
+          {{domain.name}}
+        </mat-option>
+      </mat-select> -->
+      <mat-select required placeholder="Role" [(ngModel)]="selectedRole" name="roleID">
+        <mat-option *ngFor="let role of roles" [value]="role.roleID">
+          {{role.name}}
+        </mat-option>
+      </mat-select>
+      <button type="submit" color="primary" mat-button>Add</button> 
+    </form>
+  </mat-expansion-panel>
+
+  <mat-card> 
+    <mat-card-content>
+      <rap-table [data] = "userData" [cols] = "columnSettings" (onUpdate)="showUser($event)">
+      </rap-table> 
+    </mat-card-content>
+  </mat-card>
+</div>

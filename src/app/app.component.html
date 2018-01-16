@@ -1,54 +1,104 @@
-<md-toolbar color="primary">
+<mat-toolbar color="primary">
   <div class="title">
     <div fxShow="false" fxShow.gt-sm>
-        <button md-button routerLink="/">
+        <button mat-button (click)="modulenav.open()">
         <img src="http://content.acml.com/internal/abrebrand/resources/logos/web/AB_CORP.jpg" alt="Logo">
-            Portfolios & Operations Technology
+            Portfolios & Operations Technology Solutions
         </button>
     </div>
     <div fxHide="false" fxHide.gt-sm>
-        <button md-button routerLink="/">
+        <button mat-button (click)="modulenav.open()">
         <img src="http://content.acml.com/internal/abrebrand/resources/logos/web/AB_CORP.jpg" alt="Logo">
-            POT
+            POTS
         </button>
     </div>
   </div>
   <span class="fill-remaining-space"></span>
   <div class="title" fxLayout="row" fxShow="false" fxShow.gt-sm>
-    <button md-button routerLink="/task-form"> New Task </button>
-    <button md-button routerLink="/task-list"> Task List</button>
-    <button md-button routerLink="/task-calendar"> Calendar </button>
+    <!-- <button mat-button *ngIf="isTaskModule" routerLink="/dashboard"> Dashboard </button> -->
+    <button mat-button *ngIf="isTaskModule" routerLink="/dashboard" matTooltip="Dashboard"><mat-icon>home</mat-icon></button>    
+    <button mat-button *ngIf="isTaskModule" routerLink="/task-form" matTooltip="Add Task"><mat-icon>playlist_add</mat-icon></button>
+    <button mat-button *ngIf="isTaskModule" routerLink="/task-list" matTooltip="Task List"><mat-icon>list</mat-icon></button>
+    <button mat-button *ngIf="isTaskModule" routerLink="/task-calendar" matTooltip="Calendar View"><mat-icon>event</mat-icon></button>
+    <button mat-button *ngIf="isTaskModule" routerLink="/timeline" matTooltip="Timeline View"><mat-icon>timeline</mat-icon></button>
+    <button mat-button *ngIf="isAutomationModule" routerLink="/assignment" matTooltip="Assignment"><mat-icon>assignment</mat-icon></button>
+    <button mat-button *ngIf="isAutomationModule" routerLink="/template" matTooltip="Template"><mat-icon>description</mat-icon></button>
+    <button mat-button *ngIf="isAutomationModule" routerLink="/portfolio" matTooltip="Fund"><mat-icon>pie_chart</mat-icon></button>
+    <button mat-button *ngIf="isAdminModule" routerLink="/user">User</button>
+    <button mat-button *ngIf="isAdminModule" routerLink="/field">Field</button>
+    <button mat-button *ngIf="!isUserLoggedIn" routerLink="/login"> Login </button>
+    <button mat-button *ngIf="isUserLoggedIn" [matMenuTriggerFor]="menu" matTooltip="User Info"><mat-icon>person</mat-icon></button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item>{{username}}</button>
+        <button mat-menu-item (click)="logout()" routerLink="/feedback">Logout</button>
+    </mat-menu>
   </div>
-  <button md-button (click)="sidenav.open()" fxHide="false" fxHide.gt-sm>
-    <md-icon class="white">menu</md-icon>
+  <button mat-button (click)="sidenav.open()" fxHide="false" fxHide.gt-sm>
+    <mat-icon class="white">menu</mat-icon>
   </button>
-</md-toolbar>
-<md-sidenav-container>
-    <md-sidenav align="end" #sidenav class="menu-sidenav">
-        <md-list>
-            <md-list-item>
-                <button md-button class="sidenav-button" routerLink="/" (click)="sidenav.close()"> 
-                    <md-icon>home</md-icon> Home
+</mat-toolbar>
+<mat-sidenav-container>
+    <mat-sidenav align="end" #sidenav class="menu-sidenav">
+        <mat-list>
+            <mat-list-item>
+                <button mat-button class="sidenav-button" routerLink="/" (click)="sidenav.close()"> 
+                    <mat-icon>home</mat-icon> Home
                 </button>
-            </md-list-item>
-            <md-list-item>
-                <button md-button class="sidenav-button" routerLink="/task-form" (click)="sidenav.close()">
-                    <md-icon>playlist_add</md-icon> New Task 
+            </mat-list-item>
+            <mat-list-item>
+                <button mat-button class="sidenav-button" routerLink="/task-form" (click)="sidenav.close()">
+                    <mat-icon>playlist_add</mat-icon> New Task 
                 </button>
-            </md-list-item>
-            <md-list-item>
-                <button md-button class="sidenav-button" routerLink="/task-list" (click)="sidenav.close()"> 
-                    <md-icon>list</md-icon> Task List
+            </mat-list-item>
+            <mat-list-item>
+                <button mat-button class="sidenav-button" routerLink="/task-list" (click)="sidenav.close()"> 
+                    <mat-icon>list</mat-icon> Task List
                 </button>
-            </md-list-item>
-            <md-list-item>
-                <button md-button class="sidenav-button" routerLink="/task-calendar" (click)="sidenav.close()"> 
-                    <md-icon>today</md-icon> Calendar
+            </mat-list-item>
+            <mat-list-item>
+                <button mat-button class="sidenav-button" routerLink="/task-calendar" (click)="sidenav.close()"> 
+                    <mat-icon>today</mat-icon> Calendar
                 </button>
-            </md-list-item>
-        </md-list>
-    </md-sidenav>
+            </mat-list-item>
+            <mat-list-item>
+                <button mat-button class="sidenav-button" *ngIf="!isUserLoggedIn" routerLink="/login" (click)="sidenav.close()"> 
+                    <mat-icon>person</mat-icon> Login
+                </button>
+                <button mat-button class="sidenav-button" *ngIf="isUserLoggedIn" routerLink="/login" (click)="sidenav.close(); logout()"> 
+                    <mat-icon>person</mat-icon> Logout
+                </button>
+            </mat-list-item>
+        </mat-list>
+    </mat-sidenav>
+    <mat-sidenav #modulenav class="menu-sidenav">
+        <mat-nav-list>
+            <a (click)="openTaskModule(); modulenav.close()">
+                <mat-list-item class="sidenav-item"> 
+                    <mat-icon class="margin-right">event_available</mat-icon> 
+                        <span class="mat-body-2">Task & Workflow Management</span>
+                </mat-list-item>
+            </a>
+            <a (click)="openAutomationModule(); modulenav.close()">
+                <mat-list-item class="sidenav-item"> 
+                    <mat-icon class="margin-right">transform</mat-icon> 
+                        <span class="mat-body-2">Automation</span>
+                </mat-list-item>
+            </a>
+            <a *ngIf="isAdmin" (click)="openAdminModule(); modulenav.close()">
+                <mat-list-item class="sidenav-item">
+                    <mat-icon class="margin-right">person</mat-icon>
+                        <span class="mat-body-2">Admin Tools</span>
+                </mat-list-item>
+            </a>
+            <a (click)="openFeedbackModule(); modulenav.close()">
+                <mat-list-item class="sidenav-item">
+                    <mat-icon class="margin-right">feedback</mat-icon>
+                        <span class="mat-body-2">Feedback</span>
+                </mat-list-item>
+            </a>    
+        </mat-nav-list>
+    </mat-sidenav>
     <router-outlet></router-outlet>
-</md-sidenav-container>
+</mat-sidenav-container>
 
 

@@ -1,0 +1,28 @@
+<mat-card>
+  <mat-card-subtitle>Assignment Template</mat-card-subtitle>
+  <mat-card-content>
+    <form [formGroup]="templateForm">
+      <mat-form-field class="full-width">
+        <input type="text" placeholder="Issuer" aria-label="issuer" matInput formControlName="issuer" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayIssuer">
+          <mat-option *ngFor="let issuer of filteredIssuers | async" [value]="issuer">
+            {{ issuer.name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <input type="file" class="full-width" id="file" accept=".docx" (change)="fileChange($event)">
+      <button mat-raised-button color="primary" (click)="addTemplate()">Add</button>
+      <button mat-raised-button color="primary" (click)="download()">Edit</button>
+    </form>    
+  </mat-card-content>
+</mat-card>
+<mat-card>
+  <mat-card-subtitle>Funding Memo Template</mat-card-subtitle>
+  <mat-card-content>
+    <input type="file" class="full-width" id="fundingMemo" accept=".xlsx" (change)="fundingMemoChange($event)">
+    <button mat-raised-button color="primary" (click)="updateFundingMemo()">Update</button>
+    <button mat-raised-button color="primary" (click)="downloadFundingMemo()">Download</button>
+  </mat-card-content>
+</mat-card>
+  
+  

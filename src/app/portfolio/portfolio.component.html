@@ -1,0 +1,58 @@
+<!-- <div
+  fxLayout
+  fxLayout.xs="column"
+  fxLayoutAlign="left"
+  fxFlexFill> -->
+<mat-accordion>
+  <mat-expansion-panel [expanded]="added" (opened)="set()">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Add New Fund
+      </mat-panel-title>
+      <mat-panel-description>
+        Type name, abbrev name and select company
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field fxFlex="40%">
+      <input matInput [(ngModel)]="portfolio_name" placeholder="Name">
+    </mat-form-field>
+    <mat-form-field fxFlex="10%">
+      <input matInput [(ngModel)]="abbrev_name" placeholder="Abbrev Name">
+    </mat-form-field>
+    <mat-form-field fxFlex="50%">
+      <mat-select placeholder="Company" [(ngModel)]="selectedCompany">
+        <mat-option *ngFor="let company of companies" [value]="company.companyID">
+          {{ company.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-icon-button color="primary" (click)="addNewFund()"><mat-icon>add</mat-icon></button>
+    <!-- <button mat-button color="primary">Add</button> -->
+  </mat-expansion-panel>
+</mat-accordion>
+<mat-card>
+  <mat-card-content fxFlex="100%">
+    <mat-list dense fxFlex="25%">
+      <mat-list-item><strong>Name</strong></mat-list-item>
+      <mat-list-item *ngFor="let portfolio of portfolios">{{portfolio.portfolioName}}</mat-list-item>
+    </mat-list>
+    <mat-list dense>
+      <mat-list-item><strong>Abbrev Name</strong></mat-list-item>
+      <mat-list-item *ngFor="let portfolio of portfolios">{{portfolio.abbrevName}}</mat-list-item>
+    </mat-list>
+    <mat-list dense fxFlex="40%">
+      <mat-list-item><strong>Company</strong></mat-list-item>
+      <mat-list-item *ngFor="let portfolio of portfolios">{{portfolio.company}}</mat-list-item>
+    </mat-list>
+    <mat-list dense>
+      <mat-list-item><strong>Signer</strong></mat-list-item>
+      <mat-list-item *ngFor="let portfolio of portfolios">{{portfolio.name}}</mat-list-item>
+    </mat-list>
+    <mat-list dense>
+      <mat-list-item><strong>Title</strong></mat-list-item>
+      <mat-list-item *ngFor="let portfolio of portfolios">{{portfolio.title}}</mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
+<!-- </div> -->

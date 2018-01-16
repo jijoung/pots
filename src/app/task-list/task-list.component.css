@@ -1,12 +1,19 @@
-md-card {
+mat-card {
     margin: 0;
     padding: 0;
 }
 
-md-raised-button {
+mat-raised-button {
     margin: 1em;
     background-color: #26A69A;
     color: white;
+}
+.full-width {
+    width: 90%;
+}
+
+.rap-table {
+    padding-top: 1em;
 }
 
 .filter {

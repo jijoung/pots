@@ -9,11 +9,11 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue.
-$ab-app-primary: mat-palette($mat-teal, 400);
-$ab-app-accent:  mat-palette($mat-pink, A200, A100, A400);
+$ab-app-primary: mat-palette($mat-light-blue, 600);
+$ab-app-accent:  mat-palette($mat-teal, A700);
 
 // The warn palette is optional (defaults to red).
-$ab-app-warn:    mat-palette($mat-red);
+$ab-app-warn: mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
 $ab-app-theme: mat-light-theme($ab-app-primary, $ab-app-accent, $ab-app-warn);
@@ -22,3 +22,12 @@ $ab-app-theme: mat-light-theme($ab-app-primary, $ab-app-accent, $ab-app-warn);
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($ab-app-theme);
+
+.alternate-theme {
+    $alternate-primary: mat-palette($mat-blue-grey);
+    $alternate-accent:  mat-palette($mat-orange, 400);
+    
+    $alternate-theme: mat-light-theme($alternate-primary, $alternate-accent);
+
+    @include angular-material-theme($alternate-theme);
+}

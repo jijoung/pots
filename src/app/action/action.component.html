@@ -1,6 +1,6 @@
-<md-card>
-  <md-card-title>Task Action</md-card-title>
-  <md-card-content>
+<mat-card>
+  <!-- <mat-card-title>Task Action</mat-card-title> -->
+  <mat-card-content>
     <div class="container"
       fxLayout
       fxLayout.xs="column"
@@ -8,60 +8,107 @@
       fxLayoutGap="2em"
       fxFlexFill>
       <div fxFlex="25%">
-        <md-list dense>
-          <h3 md-subheader>Title</h3>
-          <md-list-item><strong>{{task.title}}</strong></md-list-item>
-          <h3 md-subheader>Description</h3>
-          <md-list-item><strong>{{task.description}}</strong></md-list-item>
+        <mat-list dense>
+          <span mat-subheader>Title</span>
+          <mat-list-item><strong>{{task.title}}</strong></mat-list-item>
+          <span mat-subheader>Description</span>
+          <mat-list-item><strong>{{task.description}}</strong></mat-list-item>
           <div id="wrapper">
-            <div id="first" fxFlex="25%">
-              <md-list-item>Owner:</md-list-item>
-              <md-list-item>Performer:</md-list-item>
-              <md-list-item>Reviewer:</md-list-item>
-              <md-list-item>Approver:</md-list-item>
+            <div id="first" fxFlex="30%">
+              <mat-list-item>Owner:</mat-list-item>
+              <mat-list-item *ngIf="isSecondaryOwnerExist">Secondary Owner:</mat-list-item>
+              <mat-list-item>Performer:</mat-list-item>
+              <mat-list-item *ngIf="isSecondaryPerformerExist">Secondary Performer:</mat-list-item>
+              <mat-list-item>Reviewer:</mat-list-item>
+              <mat-list-item>Approver:</mat-list-item>
             </div>
-            <div id="second" fxFlex="75%">
-              <md-list-item>{{task.owner}}</md-list-item>
-              <md-list-item>{{task.performer}}</md-list-item>
-              <md-list-item>{{task.reviewer}}</md-list-item>
-              <md-list-item>{{task.approver}}</md-list-item>
+            <div id="second" fxFlex="70%">
+              <mat-list-item>{{task.owner}}</mat-list-item>
+              <mat-list-item *ngIf="isSecondaryOwnerExist">{{task.secondaryOwner}}</mat-list-item>
+              <mat-list-item>{{task.performer}}</mat-list-item>
+              <mat-list-item *ngIf="isSecondaryPerformerExist">{{task.secondaryPerformer}}</mat-list-item>
+              <mat-list-item>{{task.reviewer}}</mat-list-item>
+              <mat-list-item>{{task.approver}}</mat-list-item>
             </div>
           </div>
-        </md-list>
+        </mat-list>
       </div>
-      <md-divider></md-divider>
+      <mat-divider></mat-divider>
       <div fxFlex="30%">
-        <md-list dense>
+        <mat-list dense>
           <div id="wrapper">
             <div id="first" fxFlex="35%">
-              <md-list-item>Due date:</md-list-item>
-              <md-list-item>Completed date:</md-list-item>
-              <md-list-item>Last update:</md-list-item>
-              <md-list-item>Frequency:</md-list-item>
-              <md-list-item>Category:</md-list-item>
-              <md-list-item>Current state:</md-list-item>
+              <mat-list-item>Due date:</mat-list-item>
+              <mat-list-item>Completed date:</mat-list-item>
+              <mat-list-item>Last update:</mat-list-item>
+              <mat-list-item>Frequency:</mat-list-item>
+              <mat-list-item>Category:</mat-list-item>  
+              <mat-list-item>Status:</mat-list-item> 
             </div>
             <div id="second" fxFlex="65%">
-              <md-list-item>{{task.due}}</md-list-item>
-              <md-list-item>{{task.completed}}</md-list-item>
-              <md-list-item>{{task.updated}}</md-list-item>
-              <md-list-item>{{task.frequency}}</md-list-item>
-              <md-list-item>{{task.category}}</md-list-item>
-              <md-list-item><strong>{{task.state}}</strong></md-list-item>
+              <mat-list-item>{{task.due}}</mat-list-item>
+              <mat-list-item>{{task.completed}}</mat-list-item>
+              <mat-list-item>{{task.updated}}</mat-list-item>
+              <mat-list-item>{{task.frequency}}</mat-list-item>
+              <mat-list-item>{{task.category}}</mat-list-item>    
+              <mat-list-item>{{task.state}}</mat-list-item>     
             </div>
           </div>
-          <md-input-container class="full-width" id="left-indent">
-            <input mdInput #notes maxlength="256" placeholder="Notes">
-            <md-hint align="end">{{notes.value.length}} / 256</md-hint>
-          </md-input-container>
-        </md-list>
+          <mat-list-item>
+            <button color="primary" class="full-width" mat-button [disabled]="!isPerformer" 
+              (click)="complete()">Complete Task</button>
+          </mat-list-item>
+          <mat-list-item class="alternate-theme">
+            <button mat-button color="primary" class="full-width" [disabled]="!isPerformer" 
+              (click)="close()">Close Task</button>
+          </mat-list-item>
+          <mat-list-item>
+            <button mat-button class="full-width" (click)="editTask()">Edit Task</button>
+          </mat-list-item>
+        </mat-list>
       </div>
-      <div class="center" fxFlex="20%">
-          <button class="full-width" md-raised-button [disabled]="!isApprover" (click)="approve()">Approve</button>
-          <button color="warn" class="full-width" md-raised-button [disabled]="!isApprover" (click)="disapprove()">Disapprove</button>
-          <button class="full-width" md-raised-button [disabled]="!isPerformer" (click)="complete()">Complete</button>
-          <button class="full-width" md-raised-button>Update</button>
+      <mat-divider></mat-divider>
+      <div class="center" fxFlex="45%">
+        <mat-list dense>
+          <mat-list-item>Notes:</mat-list-item>
+          <mat-list-item *ngFor="let item of notesList">{{item.note}}</mat-list-item>
+          <mat-list-item>
+            <mat-form-field class="full-width">
+              <input matInput [(ngModel)]="note" #notes maxlength="256" placeholder="Add Notes">
+              <mat-hint align="end">{{notes.value.length}} / 256</mat-hint>
+            </mat-form-field>
+          </mat-list-item>
+          <mat-list-item>
+            <input type="file" id="file" (change)="fileChange($event)" multiple accept=".pdf,.doc,.docx,.xlsx,.csv">
+          </mat-list-item>
+          <mat-list-item *ngFor="let fileInfo of fileInfoList">
+            <a (click)="getFile(fileInfo.fileName)">{{fileInfo.fileName}}</a>
+            <span class="fill-remaining-space"></span>
+            <button mat-icon-button class="icon-button" (click)="remove(fileInfo)">
+              <mat-icon matTooltip="remove {{fileInfo.fileName}}" [matTooltipPosition]="position">delete</mat-icon>
+            </button>
+          </mat-list-item>
+          <mat-list-item>Reminder:</mat-list-item>
+          <mat-list-item>
+            <mat-select class="full-width" placeholder="Repeat" [disabled]="!isPerformer" [(ngModel)]="task.repeatID">
+              <mat-option *ngFor="let remind of reminds" [value]="remind.key">
+                {{ remind.value }}
+              </mat-option>
+            </mat-select>
+          </mat-list-item>
+          <mat-list-item style="float:right;">
+            <button mat-button color="primary" (click)="update()">Update</button>
+            <span>|</span>
+            <button mat-button routerLink="/task-calendar">Cancel</button>
+          </mat-list-item>
+          <!-- <mat-list-item></mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item><strong>Reminder</strong></mat-list-item>
+          <mat-select placeholder="Repeat">
+            <mat-option>Never</mat-option>
+          </mat-select> -->
+        </mat-list>
       </div>
     </div>
-  </md-card-content>
-</md-card>
+  </mat-card-content>
+</mat-card>

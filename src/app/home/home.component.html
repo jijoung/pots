@@ -1,0 +1,24 @@
+<!-- <div class="container"
+  fxLayout
+  fxLayout.xs="column"
+  fxLayoutAlign="center"
+  fxLayoutGap="2em"
+  fxFlexFill>
+  <mat-card>
+      <mat-card-content>
+        <mat-list
+        <a (click)="openTaskModule()">Task & Workflow Management</a>
+      </mat-card-content>
+  </mat-card>
+  <mat-card>
+      <mat-card-content>
+        File Management System
+      </mat-card-content>
+    </mat-card>
+</div> -->
+<mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile (click)="openTaskModule()">Task & Workflow Management</mat-grid-tile>
+    <mat-grid-tile>File Management System</mat-grid-tile>
+    <!-- <mat-grid-tile>3</mat-grid-tile>
+    <mat-grid-tile>4</mat-grid-tile> -->
+  </mat-grid-list>

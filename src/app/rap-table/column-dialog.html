@@ -1,0 +1,11 @@
+<div mat-dialog-content>
+    <mat-list>
+        <mat-list-item *ngFor="let column of columnList">
+            <mat-checkbox [(ngModel)]="column.checked">{{column.name}}</mat-checkbox>
+        </mat-list-item>
+    </mat-list>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="saveColumns()">Save</button>
+    <button mat-button (click)="closeDialog()">Cancel</button>
+</div>

@@ -1,0 +1,88 @@
+<!-- <mat-toolbar> 
+  <mat-select placeholder="Date Range" style="width:30%">
+    <mat-option>Today</mat-option>
+    <mat-option>This Week</mat-option>
+    <mat-option>This Month</mat-option>
+  </mat-select> 
+</mat-toolbar> -->
+<div
+  fxLayout
+  fxLayout.xs="column"
+  fxLayoutAlign="left"
+  fxFlexFill>
+  <mat-card fxFlex="30%">
+    <mat-card-subtitle>
+      All Tasks
+    </mat-card-subtitle>
+    <mat-card-content>
+      <canvas baseChart width="1" height="1"
+      [data]="doughnutChartData"
+      [labels]="doughnutChartLabels"
+      [chartType]="doughnutChartType"
+      [colors]="doughnutChartColors"
+      [options]="doughnutChartOptions"
+      (chartHover)="chartHovered($event)"
+      (chartClick)="chartClicked($event)"></canvas>
+    </mat-card-content>
+  </mat-card>
+  <mat-card fxFlex="70%">
+    <mat-card-subtitle>Tasks by Users</mat-card-subtitle>
+    <mat-card-content>
+      <canvas baseChart
+      [datasets]="barChartData"
+      [labels]="barChartLabels"
+      [options]="barChartOptions"
+      [legend]="barChartLegend"
+      [colors]="myColors"
+      [chartType]="barChartType"
+      (chartHover)="chartHovered($event)"
+      (chartClick)="barChartClicked($event)"></canvas>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div
+  fxLayout
+  fxLayout.xs="column"
+  fxLayoutAlign="left"
+  fxFlexFill>
+  <mat-card fxFlex="50%">
+    <mat-card-subtitle>
+      My Tasks: {{myTasks.length}}
+    </mat-card-subtitle>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <mat-nav-list dense fxFlex="50%">
+        <mat-list-item><strong>Title</strong></mat-list-item>
+        <mat-list-item *ngFor="let task of myTasks" (click)="openActionTask(task.actionTaskID)">{{task.title}}</mat-list-item>
+      </mat-nav-list>
+      <mat-list dense fxFlex="30%">
+        <mat-list-item><strong>Due</strong></mat-list-item>
+        <mat-list-item *ngFor="let task of myTasks"> {{task.dueDate | date:'M/d'}} </mat-list-item>
+      </mat-list>
+      <mat-list dense fxFlex="20%">
+        <mat-list-item><strong>Status</strong></mat-list-item>
+        <mat-list-item *ngFor="let task of myTasks"> {{task.status}} </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+  <mat-card fxFlex="50%">
+    <mat-card-subtitle>
+      Outstanding Tasks: {{outstandingTasks.length}}
+    </mat-card-subtitle>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <mat-nav-list dense fxFlex="50%">
+        <mat-list-item><strong>Title</strong></mat-list-item>
+        <mat-list-item *ngFor="let task of outstandingTasks" (click)="openActionTask(task.actionTaskID)">{{task.title}}</mat-list-item>
+      </mat-nav-list>
+      <mat-list dense fxFlex="20%">
+        <mat-list-item><strong>Due</strong></mat-list-item>
+        <mat-list-item *ngFor="let task of outstandingTasks"> {{task.dueDate | date:'M/d'}} </mat-list-item>
+      </mat-list>
+      <mat-list dense fxFlex="30%">
+        <mat-list-item><strong>Performer</strong></mat-list-item>
+        <mat-list-item *ngFor="let task of outstandingTasks"> {{task.performer}} </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>

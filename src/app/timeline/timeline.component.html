@@ -1,0 +1,103 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Filter
+    </mat-panel-title>
+    <mat-panel-description>
+      By Department, Category, Frequency, Status, and Name
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+    <div class="container"
+        fxLayout
+        fxLayout.xs="column"
+        fxFlexFill>
+      <mat-form-field fxFlex="20%" class="filter-width">
+        <mat-select multiple placeholder="Department" [(ngModel)]="selectedDepartment"
+                    (ngModelChange)="getFilteredTask()" name="department">
+          <mat-option *ngFor="let department of departments" [value]="department.departmentID">
+            {{department.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field fxFlex="20%" class="filter-width">
+        <mat-select multiple placeholder="Category" [(ngModel)]="selectedCategory"
+                    (ngModelChange)="getFilteredTask()" name="category">
+          <mat-option *ngFor="let category of categories" [value]="category.categoryID">
+            {{category.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field fxFlex="20%" class="filter-width">
+        <mat-select multiple placeholder="Frequency" [(ngModel)]="selectedFrequency"
+                    (ngModelChange)="getFilteredTask()" name="frequency">
+          <mat-option *ngFor="let frequency of frequencies" [value]="frequency.frequencyID">
+            {{frequency.period}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field fxFlex="20%" class="filter-width">
+        <mat-select multiple placeholder="Status" [(ngModel)]="selectedStatus"
+                    (ngModelChange)="getFilteredTask()" name="status">
+          <mat-option *ngFor="let status of statuses" [value]="status.statusID">
+            {{status.status}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div fxFlex="20%">
+        <mat-form-field class="filter-width">
+            <input matInput placeholder="Name" [matAutocomplete]="auto" [formControl]="userCtrl"
+              [(ngModel)]="selectedUser" (ngModelChange)="checkUserId()">
+        </mat-form-field>
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+            <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
+            {{user.firstName}} {{user.lastName}}
+            </mat-option>
+        </mat-autocomplete>
+      </div>
+      <div fxFlex="5%">
+        <button style="float:right" mat-button color="primary" (click)="clearSelections()">Clear</button>
+      </div>
+    </div>
+</mat-expansion-panel>
+
+<div *ngFor="let task of tasks">
+  <mat-card>
+    <mat-card-content>
+      <div *ngIf="task.isToday" class="vertical" [style.left]="task.line"></div>
+      <div *ngIf="task.isToday" class="today" [style.marginLeft]="task.marginLeft" [style.marginRight]="task.marginRight">
+        Today
+      </div>
+      Current progress: {{task.progress.completed}} of {{task.progress.length}} completed
+      <mat-progress-bar [value]="task.completedTask"></mat-progress-bar>
+      <div class="test">
+        <mat-expansion-panel style="width: 100%;" [style.backgroundColor]="task.color">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{task.title}}
+            </mat-panel-title>
+            <mat-panel-description>
+              {{task.startDate}} - {{task.endDate}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <app-action [taskID]="task.actionTaskID"></app-action>
+        </mat-expansion-panel>
+        <div *ngFor="let subtask of task.childTasks">
+          <a (click)="showTask(subtask)">
+          <mat-expansion-panel class="sub-task" [matTooltip]="subtask.title + ' ' + subtask.startDate + ' - ' + subtask.endDate"
+            [style.width]="subtask.width" [style.marginLeft]="subtask.marginLeft" [style.marginRight]="subtask.marginRight"
+            [style.backgroundColor]="subtask.color">
+            <mat-expansion-panel-header [style.fontSize]="subtask.fontSize">
+              <mat-panel-title>
+                {{subtask.title}}
+              </mat-panel-title>
+              <mat-panel-description>
+                {{subtask.startDate}} - {{subtask.endDate}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+          </mat-expansion-panel>
+          </a>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

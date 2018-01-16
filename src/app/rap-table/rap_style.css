@@ -1,29 +1,24 @@
-md-input-container {
-	padding-left: 2em;
-	width: 50%;
+mat-form-field {
+	margin-left: 1.5em;
 }
-
-/* md-cell {
-	padding-right: 2em;
-} */
+ 
 .mat-cell {
 	font-size: 0.9em;
-	padding-left: 0.5em;
+	padding-right: 0.4em;
 }
 
-.mat-header-cell {
+/* .mat-header-cell {
 	width: 100%;
-	padding-left: 0.5em;
-}
+} */
 
-.remove-button{
+/* .remove-button{
     width:10px;
 	max-width:40px;
 }
 
 .mat-table {
   overflow: auto;
-}
+} */
 
 .mat-row{
 	overflow: hidden;
@@ -31,7 +26,6 @@ md-input-container {
     max-height:300px;
 	cursor: pointer; 
 	cursor: hand;
-    /*padding-top: 20px;*/
 }
 
 .mat-row:hover{
@@ -42,8 +36,8 @@ md-input-container {
 	 background-color: #F8F8F8;
 }
 
-.center{
+/* .center{
 	float: none;
      margin-left: auto;
      margin-right: auto;
-}
+} */

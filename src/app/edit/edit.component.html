@@ -1,0 +1,135 @@
+<mat-card>
+    <mat-card-title> Update Task </mat-card-title>
+    <mat-card-content> 
+      <form class="task-form" (ngSubmit)="editTask(f.value)" #f="ngForm">
+        <div class="container"
+            fxLayout
+            fxLayout.xs="column"
+            fxLayoutAlign="center"
+            fxLayoutGap="2em"
+            fxFlexFill>          
+          <div fxFlex="37.5%">
+            <mat-form-field class="task-full-width">
+              <input matInput placeholder="Title" [(ngModel)]="task.title" name="title">
+            </mat-form-field>
+            <mat-form-field class="task-full-width">
+              <textarea matInput type="text" #message maxlength="256" placeholder="Description" [(ngModel)]="task.description" name="description"></textarea>
+              <mat-hint align="start">{{message.value.length}} / 256</mat-hint>
+            </mat-form-field>
+            <div class="top-padding">
+              <mat-select class="task-full-width" placeholder="Department" [(ngModel)]="task.departmentID" name="department">
+                <mat-option *ngFor="let department of departments" [value]="department.departmentID">
+                  {{department.name}}
+                </mat-option>
+              </mat-select>
+            </div>
+            <div class="top-padding">
+              <mat-select class="task-full-width" placeholder="Category" [(ngModel)]="task.categoryID" name="category">
+                <mat-option *ngFor="let category of categories" [value]="category.categoryID">
+                  {{category.name}}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div class="item" fxFlex="37.5%">
+            <div id="wrapper">
+              <div id="first" fxFlex="50%">
+                <mat-select class="task-full-width" placeholder="Owner" [(ngModel)]="task.ownerID" name="owner">
+                  <mat-option *ngFor="let owner of owners" [value]="owner.userID">
+                    {{owner.firstName}} {{owner.lastName}}
+                  </mat-option>
+                </mat-select>
+              </div>
+              <div id="second" fxFlex="50%">
+                <mat-select class="task-full-width" placeholder="Performer" [(ngModel)]="task.performerID" name="performer">
+                  <mat-option *ngFor="let performer of performers" [value]="performer.userID">
+                    {{performer.firstName}} {{performer.lastName}}
+                  </mat-option>
+                </mat-select>
+              </div>
+            </div>
+            <div id="wrapper">
+              <div *ngIf="task.secondaryOwner" id="first" fxFlex="50%">
+                <mat-select class="task-full-width" disabled placeholder="Secondary Owner" [(ngModel)]="task.secondaryOwner" name="secondaryOwner">
+                  <mat-option [value]="task.secondaryOwner">{{task.secondaryOwner}}</mat-option>
+                </mat-select>
+              </div>
+              <div *ngIf="task.secondaryPerformer" id="second" fxFlex="50%">
+                <mat-select class="task-full-width" disabled placeholder="Secondary Performer" [(ngModel)]="task.secondaryPerformer" name="secondaryPerformer">
+                  <mat-option [value]="task.secondaryPerformer">{{task.secondaryPerformer}}</mat-option>
+                </mat-select>
+              </div>
+            </div>
+            <div class="top-padding" id="wrapper">
+              <div id="first" fxFlex="50%">
+                <mat-select class="task-full-width" placeholder="Reviewer" [(ngModel)]="task.reviewerID" name="reviewer">  
+                  <mat-option *ngFor="let reviewer of reviewers" [value]="reviewer.userID">
+                    {{reviewer.firstName}} {{reviewer.lastName}}
+                  </mat-option>
+                </mat-select> 
+              </div>
+              <div id="second" fxFlex="50%">
+                <mat-select class="task-full-width" placeholder="Approver" [(ngModel)]="task.approverID" name="approver">  
+                  <mat-option *ngFor="let approver of approvers" [value]="approver.userID">
+                    {{approver.firstName}} {{approver.lastName}}
+                  </mat-option>
+                </mat-select>               
+              </div>
+            </div>
+            <div class="top-padding">
+              <mat-select class="task-full-width" placeholder="Frequency" [(ngModel)]="task.frequencyID" name="frequency">
+                <mat-option *ngFor="let frequency of frequencies" [value]="frequency.frequencyID">
+                  {{frequency.period}}
+                </mat-option>
+              </mat-select>
+            </div>
+            <div class="top-padding" id="wrapper">
+              <div id="first" fxFlex="50%">
+                <mat-form-field class="task-full-width">
+                  <input matInput [matDatepicker]="startDate" placeholder="Start date" [(ngModel)]="task.startDate" name="startDate">
+                  <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                  <mat-datepicker #startDate value="task.startDate"></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div id="second" fxFlex="50%">
+                <mat-form-field class="task-full-width">
+                  <input matInput [min]="task.startDate" [matDatepicker]="endDate" placeholder="End date" [(ngModel)]="task.endDate" name="endDate">
+                  <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                  <mat-datepicker #endDate value="task.endDate"></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+            <mat-form-field class="task-full-width">
+              <input matInput placeholder="Remind me in # days before due date" [formControl]="frequencyFormControl" [(ngModel)]="task.remindDays" name="remind">
+              <mat-error *ngIf="frequencyFormControl.hasError('pattern')">
+                Please enter a positive number no more than 150
+              </mat-error>
+            </mat-form-field>
+            <button type="button" mat-button class="button-right" routerLink="/task-list">Cancel</button>
+            <button type="button" color="warn" mat-button [disabled]="!isOwner" class="button-right" (click)="delete()">Delete</button>
+            <button color="primary" mat-button [disabled]="!isOwner" class="button-right">Save</button>
+            <button type="button" mat-button [matMenuTriggerFor]="menu">Add Subtask</button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="openTaskList()">Choose from the list</button>
+              <button mat-menu-item (click)="openTaskForm()">Create a new task</button>
+            </mat-menu>
+            <!-- <button type="button" mat-button (click)="showSubTask()"><mat-icon>work</mat-icon>{{subtaskList.length}}</button>  -->
+          </div>
+          <div fxflex="25%">
+            <div class="status">Current State</div>
+            <div>{{task.state}}</div>
+            <button type="button" color="primary" mat-raised-button [disabled]="!isApprover" 
+              (click)="approve()" matTooltip="Approve"><mat-icon>thumb_up</mat-icon></button>
+            <button type="button" color="warn" mat-raised-button [disabled]="!isApprover" 
+              (click)="disapprove()" matTooltip="Disapprove"><mat-icon>thumb_down</mat-icon></button>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  <div *ngIf="viewSubtask">
+    <div *ngFor="let subtask of subtaskList">
+      <app-subtask [subtaskCount]="subtask.subtaskId" [subtaskInput]="subtask" [isEdit]="isEdit"
+        (subtask)="editSubtask($event)"></app-subtask>
+    </div>
+  </div>

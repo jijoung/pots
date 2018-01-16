@@ -1,8 +1,8 @@
 @import "~angular-calendar/dist/css/angular-calendar.css";
 
-body {
+/* body {
     font-family: Arial, Helvetica, sans-serif;
-}
+} */
 
 .button-right {
     float: right;
@@ -27,6 +27,12 @@ body {
 
 .full-width {
     width: 100%;
+}
+
+.center-element {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #title {

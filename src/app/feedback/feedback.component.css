@@ -1,0 +1,17 @@
+:host {
+    display: flex;
+    justify-content: center;
+}
+
+mat-card {
+    margin-top:10%;
+    margin-bottom: 10%;
+}
+
+mat-button-toggle-group {
+    margin: 1em;
+}
+
+.full-width {
+    width: 100%;
+}

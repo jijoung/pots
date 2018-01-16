@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PotService } from '../pot.service';
+import { UserService } from '../user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ColumnOptions } from '../rap-table/ColumnOptions';
+import { ColumnSetting } from '../model/user';
 
 @Component({
   selector: 'app-task-list',
@@ -22,66 +24,94 @@ export class TaskListComponent implements OnInit {
   selectedFromDate: Date;
   selectedToDate: Date;
 
-  columnSettings: Array<ColumnOptions> = [
-    {attribute:"category" , header:"Category"},
-    {attribute:"title" , header:"Title"}, 
-    {attribute:"frequency", header:"Frequency"},
-    {attribute:"owner" , header:"Owner"},
-    {attribute:"performer" , header:"Performer"},
-    {attribute:"reviewer" , header:"Reviewer"},
-    {attribute:"approver" , header:"Approver"},
-    {attribute:"start" , header:"Start Date"},
-    {attribute:"end" , header:"Expiration Date"},
-    {attribute:"status" , header:"Status"},
-  ]  
+  columnSettings: Array<ColumnOptions>; 
+  columnSetting = new ColumnSetting();
+  
+  selectedColumns:any;
 
   taskData: Array<any>;
 
   constructor(
     public potService: PotService,
     public route: ActivatedRoute,
-    public router: Router
+    public router: Router,
+    private user: UserService
   ) { }
 
   ngOnInit() {
+    this.columnSettings = [
+      {attribute:"title" , header:"Title"}, 
+      {attribute:"category" , header:"Category"},
+      {attribute:"frequency", header:"Frequency"},
+      {attribute:"owner" , header:"Owner"},
+      {attribute:"performer" , header:"Performer"},
+      {attribute:"reviewer" , header:"Reviewer"},
+      {attribute:"approver" , header:"Approver"},
+      {attribute:"start" , header:"Start Date"},
+      {attribute:"end" , header:"Expiration Date"},
+      {attribute:"status" , header:"State"},
+      {attribute:"remind" , header:"Remind"},
+    ]  
     this.getTasks();
     this.InitializeFilter();
   }
 
   public getTasks() {
-    this.potService.potsGetTasks('jjoung').subscribe(res => {
+    this.potService.potsGetFilteredTasks(this.user.getUserName()).subscribe(res => {
       this.taskData = res;
+      //console.log(this.taskData);
+      this.getColumnSetting();
+    })
+  }
+
+  public getColumnSetting() {
+    this.potService.getColumnSetting(this.user.getUserID(), this.user.getUserDomain()).subscribe(res => {
+      
+      if (res[0]) {
+        this.selectedColumns = JSON.parse(res[0].selectedColumns);
+        //this.taskData.push({selectedColumns: selectedColumns});
+        console.log(this.selectedColumns);
+      }
     })
   }
 
   InitializeFilter() {
-    this.potService.potsGetDepartments().subscribe(res => {
+    this.potService.potsGetDepartments(this.user.getUserName()).subscribe(res => {
       this.departments = res;
     })
-    this.potService.potsGetCategories().subscribe(res => {
+    this.potService.getCategories(this.user.getUserName()).subscribe(res => {
       this.categories = res;
     })
     this.potService.potsGetFrequencies().subscribe(res => {
       this.frequencies = res;
     })
-    this.potService.potsGetStatuses().subscribe(res => {
+    this.potService.getTaskStates().subscribe(res => {
       this.statuses = res;
     })
   }
 
   public showTask(e) {
     //console.log(e);
-    this.router.navigate(['/action', e.taskID]);
+    this.router.navigate(['/edit', e.taskID]);
+  }
+
+  public showColumns(e) {
+    var jsonString = JSON.stringify(e);
+
+    this.columnSetting.userID = this.user.getUserID();
+    this.columnSetting.selectedColumns = jsonString;
+    this.potService.insertColumnSetting(this.columnSetting).subscribe();
   }
 
   clearSelections() {
+
     this.selectedDepartment = undefined;
     this.selectedCategory = undefined;
     this.selectedFrequency = undefined;
     this.selectedStatus = undefined;
     this.selectedFromDate = undefined;
     this.selectedToDate = undefined;
-    this.potService.potsGetFilteredTasks(undefined, undefined, undefined, undefined, undefined, undefined)
+    this.potService.potsGetFilteredTasks(this.user.getUserName(), undefined, undefined, undefined, undefined, undefined, undefined)
                       .subscribe(res => { this.taskData = res; })
   }
 
@@ -116,7 +146,7 @@ export class TaskListComponent implements OnInit {
       toDate = toDate.getTime();
     }
     //console.log(departmentList, categoryList, frequencyList, statusList, fromDate, toDate);
-    this.potService.potsGetFilteredTasks(departmentList, categoryList, frequencyList, statusList, fromDate, toDate)
+    this.potService.potsGetFilteredTasks(this.user.getUserName(), departmentList, categoryList, frequencyList, statusList, fromDate, toDate)
                       .subscribe(res => { this.taskData = res; })
   }
 }

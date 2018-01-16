@@ -1,0 +1,30 @@
+mat-card {
+    margin: 1em;
+}
+
+button {
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+}
+  
+.task-full-width {
+    width: 100%;
+}
+  
+.top-padding {
+    padding-top: 1em;
+}
+
+.status {
+    color: #9E9E9E;
+    font-size: 0.9em;
+    margin-bottom: 0.4em;
+}
+  
+#first {
+    padding-right: 1em;
+}
+
+#second {
+    padding-left: 1em;
+} 

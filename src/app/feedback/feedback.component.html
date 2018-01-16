@@ -1,0 +1,32 @@
+<mat-card>
+  <mat-card-title>Feedback</mat-card-title>
+  <mat-card-content>
+    <form class="feedback-form" (ngSubmit)="submitFeedback(f.value)" #f="ngForm">   
+      <div>
+      What do you think of this app?
+      </div>
+      <mat-button-toggle-group #group="matButtonToggleGroup" (change)="select(group)" [(ngModel)]="sentiment" name="sentiment">
+        <mat-button-toggle value="very dissatisfied">
+          <mat-icon [color]="colors[0].color">sentiment_very_dissatisfied</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="dissatisfied">
+          <mat-icon [color]="colors[1].color">sentiment_dissatisfied</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="neutral">
+          <mat-icon [color]="colors[2].color">sentiment_neutral</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="satisfied">
+          <mat-icon [color]="colors[3].color">sentiment_satisfied</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="very satisfied">
+          <mat-icon [color]="colors[4].color">sentiment_very_satisfied</mat-icon>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+      <div align="center"> {{group.value}}</div>
+      <mat-form-field class="full-width">
+        <textarea type="text" matInput placeholder="Message" [(ngModel)]="message" name="message"></textarea>
+      </mat-form-field>
+      <button type="submit" color="primary" mat-button class="button-right">Submit</button>
+    </form>
+  </mat-card-content>
+</mat-card>

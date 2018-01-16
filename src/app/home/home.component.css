@@ -1,0 +1,30 @@
+/* mat-card {
+    margin: 1em 0 1em 0;
+    width: 20em;
+    height: 20em;
+    background-color: #00BFA5;
+}
+
+mat-card-content {
+    padding-top: 30%;
+    text-align: center;
+    font-size: 2em;
+}
+
+a {
+    color: black;
+}
+
+a:hover {
+    background-color: yellow;
+} */
+mat-grid-tile {
+    background: #B2DFDB;
+    /* font-size: 200%; */
+}
+mat-grid-tile:hover {
+    background: #80CBC4;
+}
+/* mat-icon {
+    font-size: 10em;
+} */

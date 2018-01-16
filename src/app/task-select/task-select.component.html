@@ -1,0 +1,8 @@
+<mat-selection-list #taskList>
+  <mat-list-option *ngFor="let task of tasks" [value]="task.taskID">
+    {{task.title}}
+  </mat-list-option>
+</mat-selection-list>
+<button color="primary" class="full-width" mat-raised-button (click)="mapTask(taskList.selectedOptions.selected)">
+  Add {{taskList.selectedOptions.selected.length}} selected subtask(s)
+</button>

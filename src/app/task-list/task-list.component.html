@@ -1,69 +1,67 @@
-<md-card class="filter">
-  <md-card-content>
+<mat-card class="filter">
+  <mat-card-content>
     <div class="container"
         fxLayout
         fxLayout.xs="column"
         fxFlexFill>    
-      <div fxFlex="15%" id="top-padding">
-        <md-select class="full-width" multiple placeholder="Department" [(ngModel)]="selectedDepartment" 
+      <mat-form-field fxFlex="15%" class="full-width">
+        <mat-select multiple placeholder="Department" [(ngModel)]="selectedDepartment" 
                    (ngModelChange)="getFilteredTask()" name="department">
-          <md-option *ngFor="let department of departments" [value]="department.departmentID">
+          <mat-option *ngFor="let department of departments" [value]="department.departmentID">
             {{department.name}}
-          </md-option>
-        </md-select>
-      </div>
-      <div fxFlex="15%" id="top-padding">
-        <md-select class="full-width" multiple placeholder="Category" [(ngModel)]="selectedCategory" 
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field fxFlex="15%" class="full-width">
+        <mat-select multiple placeholder="Category" [(ngModel)]="selectedCategory" 
                    (ngModelChange)="getFilteredTask()" name="category">
-          <md-option *ngFor="let category of categories" [value]="category.categoryID">
+          <mat-option *ngFor="let category of categories" [value]="category.categoryID">
             {{category.name}}
-          </md-option>
-        </md-select>
-      </div>
-      <div fxFlex="10%" id="top-padding">     
-        <md-select class="full-width" multiple placeholder="Frequency" [(ngModel)]="selectedFrequency"
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field fxFlex="15%" class="full-width">     
+        <mat-select multiple placeholder="Frequency" [(ngModel)]="selectedFrequency"
                    (ngModelChange)="getFilteredTask()" name="frequency">
-          <md-option *ngFor="let frequency of frequencies" [value]="frequency.frequencyID">
+          <mat-option *ngFor="let frequency of frequencies" [value]="frequency.frequencyID">
             {{frequency.period}}
-          </md-option>
-        </md-select>       
-      </div>
-      <div fxFlex="10%" id="top-padding">
-        <md-select class="full-width" multiple placeholder="Status" [(ngModel)]="selectedStatus" 
+          </mat-option>
+        </mat-select>       
+      </mat-form-field>
+      <mat-form-field fxFlex="15%" class="full-width">
+        <mat-select multiple placeholder="State" [(ngModel)]="selectedStatus" 
                    (ngModelChange)="getFilteredTask()" name="status">
-          <md-option *ngFor="let status of statuses" [value]="status.statusID">
+          <mat-option *ngFor="let status of statuses" [value]="status.statusID">
             {{status.status}}
-          </md-option>
-        </md-select>
-      </div>
-      <div fxFlex="60%">
-        <div id="first" fxFlex="50%" style="padding-top:0.5em"> 
-          <md-input-container style="padding-left:1em; width:100%">
-            <input mdInput [mdDatepicker]="fromDate" placeholder="From" [(ngModel)]="selectedFromDate" 
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div fxFlex="50%">
+        <div id="first" fxFlex="50%"> 
+          <mat-form-field style="width:100%">
+            <input matInput [matDatepicker]="fromDate" placeholder="From" [(ngModel)]="selectedFromDate" 
                    (ngModelChange)="getFilteredTask()" name="fromDate">
-            <button mdSuffix [mdDatepickerToggle]="fromDate"></button>
-          </md-input-container>
-          <md-datepicker #fromDate></md-datepicker>
+            <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
+            <mat-datepicker #fromDate></mat-datepicker>
+          </mat-form-field>
         </div>
-        <div id="second" fxFlex="50%" style="padding-top:0.5em"> 
-          <md-input-container style="padding-left:1em; width:100%">
-            <input mdInput [mdDatepicker]="toDate" placeholder="To" [(ngModel)]="selectedToDate" 
+        <div id="second" fxFlex="50%"> 
+          <mat-input-container style="width:100%">
+            <input matInput [matDatepicker]="toDate" placeholder="To" [(ngModel)]="selectedToDate" 
                    (ngModelChange)="getFilteredTask()" name="toDate">
-            <button mdSuffix [mdDatepickerToggle]="toDate"></button>
-          </md-input-container>
-          <md-datepicker #toDate></md-datepicker>
+            <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
+            <mat-datepicker #toDate></mat-datepicker>
+          </mat-input-container>
         </div>
-      </div>
-      <div fxFlex="10%" style="padding-top:1em">
-        <button style="float:right; color: #26A69A;" md-button (click)="clearSelections()">Clear</button>
+        <button mat-button color="primary" (click)="clearSelections()">Clear</button>
       </div>
     </div>
-  </md-card-content>
-</md-card>
+  </mat-card-content>
+</mat-card>
 
-<md-card> 
-  <md-card-content>
-    <rap-table [data] = "taskData" [cols] = "columnSettings" (onUpdate)="showTask($event)">
+<mat-card class="rap-table"> 
+  <mat-card-content>
+    <rap-table [data]="taskData" [cols]="columnSettings" [selectedCols]="selectedColumns" (onUpdate)="showTask($event)" (onSave)="showColumns($event)">
     </rap-table> 
-  </md-card-content>
-</md-card>
+  </mat-card-content>
+</mat-card>

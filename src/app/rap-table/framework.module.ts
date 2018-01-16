@@ -1,25 +1,47 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MdTableModule, MdSortModule, MdInputModule, MdButtonModule, MdDialogModule, MdCardModule, MdTooltipModule } from '@angular/material';
-import { RAPTableComponent } from './rap-table.component';
-import { CdkTableModule } from '@angular/cdk';
+import { 
+    MatTableModule, 
+    MatSortModule, 
+    MatInputModule, 
+    MatButtonModule, 
+    MatDialogModule, 
+    MatCardModule, 
+    MatTooltipModule, 
+    MatIconModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatListModule,
+    MatProgressSpinnerModule } from '@angular/material';
+import { RAPTableComponent, ColumnDialog } from './rap-table.component';
+import { CdkTableModule } from '@angular/cdk/table';
 import { ExcelService } from './excel_service';
+import { FormsModule } from '@angular/forms';
+
 @NgModule({
     imports: [ 
         CommonModule, 
-        MdTableModule,
-        MdInputModule,
+        MatTableModule,
+        MatInputModule,
         CdkTableModule,
-        MdButtonModule,
-        MdTooltipModule,
-        MdCardModule,
-        MdSortModule
+        MatButtonModule,
+        MatTooltipModule,
+        MatCardModule,
+        MatSortModule,
+        MatIconModule,
+        MatSelectModule,
+        FormsModule,
+        MatCheckboxModule,
+        MatListModule,
+        MatProgressSpinnerModule
     ],
-    declarations: [ RAPTableComponent ],
+    declarations: [ RAPTableComponent, ColumnDialog ],
     providers: [ExcelService],
+    entryComponents: [ColumnDialog],
     exports: [
      	CommonModule,
-        RAPTableComponent
+        RAPTableComponent,
+        ColumnDialog
     ]
 })
 export class RAPFrameworkModule {
