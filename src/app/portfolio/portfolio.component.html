@@ -1,9 +1,4 @@
-<!-- <div
-  fxLayout
-  fxLayout.xs="column"
-  fxLayoutAlign="left"
-  fxFlexFill> -->
-<mat-accordion>
+<!-- <mat-accordion>
   <mat-expansion-panel [expanded]="added" (opened)="set()">
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -28,7 +23,6 @@
       </mat-select>
     </mat-form-field>
     <button mat-icon-button color="primary" (click)="addNewFund()"><mat-icon>add</mat-icon></button>
-    <!-- <button mat-button color="primary">Add</button> -->
   </mat-expansion-panel>
 </mat-accordion>
 <mat-card>
@@ -54,5 +48,38 @@
       <mat-list-item *ngFor="let portfolio of portfolios">{{portfolio.title}}</mat-list-item>
     </mat-list>
   </mat-card-content>
+</mat-card> -->
+<mat-card>
+  <mat-card-content>
+    <dx-data-grid 
+      id="gridContainer"
+      [dataSource]="portfolios"
+      keyExpr="fundID"
+      [allowColumnReordering]="true"
+      (onEditingStart)="logEvent('EditingStart')"
+      (onInitNewRow)="logEvent('InitNewRow')"
+      (onRowInserting)="rowInsert($event)"
+      (onRowInserted)="logEvent('RowInserted')"
+      (onRowUpdating)="rowUpdate($event)"
+      (onRowUpdated)="logEvent('RowUpdated')"
+      (onRowRemoving)="rowRemove($event)"
+      (onRowRemoved)="logEvent('RowRemoved')">
+    
+      <dxo-paging [enabled]="true"></dxo-paging>
+      <dxo-editing 
+          mode="row"
+          [allowUpdating]="true"
+          [allowDeleting]="true"
+          [allowAdding]="true">
+      </dxo-editing>
+      
+      <dxi-column dataField="fundName" caption="Fund Name"></dxi-column>
+      <dxi-column dataField="abbrevName" [width]="130"></dxi-column>  
+      <dxi-column dataField="company" caption="Company"></dxi-column>
+      <dxi-column dataField="signer" [width]="130"></dxi-column>
+      <dxi-column dataField="title" [width]="130"></dxi-column>
+    </dx-data-grid>
+  </mat-card-content>
 </mat-card>
-<!-- </div> -->
+
+

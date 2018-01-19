@@ -21,14 +21,14 @@
       <mat-form-field class="full-width">
         <mat-select placeholder="Assignor" formControlName="assignor"  name="assignor">
           <mat-option *ngFor="let portfolio of portfolios" [value]="portfolio">
-            {{ portfolio.portfolioName }}
+            {{ portfolio.fundName }}
           </mat-option>
         </mat-select>        
       </mat-form-field>
       <mat-form-field class="full-width">
         <mat-select placeholder="Assignee" formControlName="assignee"  name="assignee">
           <mat-option *ngFor="let portfolio of portfolios" [value]="portfolio">
-            {{ portfolio.portfolioName }}
+            {{ portfolio.fundName }}
           </mat-option>
         </mat-select>
       </mat-form-field>

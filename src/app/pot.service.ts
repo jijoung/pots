@@ -202,6 +202,10 @@ export class PotService {
     return this._http.post(this.api_url + 'RemoveFile', data, this.postOptions).map(() => '');
   }
 
+  DeleteFund(data) {
+    return this._http.post(this.api_url + 'DeleteFund', data, this.postOptions).map(() => '');
+  }
+
   updateTaskState(data) {
     return this._http.post(this.api_url + 'UpdateTaskState', data, this.postOptions).map(() => '');
   }
@@ -233,6 +237,10 @@ export class PotService {
 
   updateRepeatID(data) {
     return this._http.post(this.api_url + 'UpdateRepeatID', data, this.postOptions).map(() => '');
+  }
+
+  updateFund(data) {
+    return this._http.post(this.api_url + 'UpdateFund', data, this.postOptions).map(() => '');
   }
 
   submitFeedback(data) {

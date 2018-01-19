@@ -26,6 +26,7 @@ import {
   MatSelectModule,
   MatFormFieldModule,
 } from '@angular/material';
+import { DxDataGridModule, DxButtonModule } from 'devextreme-angular';
 
 @NgModule({
   imports: [
@@ -54,6 +55,7 @@ import {
     MatProgressSpinnerModule,
     MatSelectModule,
     MatFormFieldModule,
+    DxDataGridModule, DxButtonModule
   ],
   exports: [
     MatCardModule,
@@ -80,6 +82,7 @@ import {
     MatProgressSpinnerModule,
     MatSelectModule,
     MatFormFieldModule,
+    DxDataGridModule, DxButtonModule
   ],
   declarations: []
 })

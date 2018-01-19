@@ -20,7 +20,9 @@
       "prefix": "app",
       "styles": [
         "styles.css",
-        "ab-theme.scss"
+        "ab-theme.scss",
+        "../node_modules/devextreme/dist/css/dx.common.css",
+        "../node_modules/devextreme/dist/css/dx.light.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
