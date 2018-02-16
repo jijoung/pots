@@ -31,32 +31,7 @@ export class PortfolioComponent implements OnInit {
       this.portfolios = res;
       console.log(this.portfolios);
     })
-    // this.potService.getCompanies().subscribe(res => {
-    //   this.companies = res;
-    //   console.log(this.companies);
-    // })
   }
-
-  // addNewFund() {
-  //   if (this.portfolio_name && this.abbrev_name && this.selectedCompany) {
-  //     this.fund.FundName = this.portfolio_name;
-  //     this.fund.AbbrevName = this.abbrev_name;
-  //     this.fund.CompanyID = this.selectedCompany;
-  //     this.potService.insertFund(this.fund).subscribe(res => {
-  //       this.added = false;
-  //       this.portfolio_name = undefined;
-  //       this.abbrev_name = undefined;
-  //       this.selectedCompany = undefined;
-  //       this.ngOnInit();
-  //     });
-  //   } else {
-  //     alert('Please fill out all the fields to add a fund');
-  //   }
-  // }
-
-  // set() {
-  //   this.added = true;
-  // }
 
   rowInsert(e) {
     console.log(e);

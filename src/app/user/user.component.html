@@ -29,11 +29,13 @@
           {{domain.name}}
         </mat-option>
       </mat-select> -->
-      <mat-select required placeholder="Role" [(ngModel)]="selectedRole" name="roleID">
-        <mat-option *ngFor="let role of roles" [value]="role.roleID">
-          {{role.name}}
-        </mat-option>
-      </mat-select>
+      <mat-form-field>
+        <mat-select required placeholder="Role" [(ngModel)]="selectedRole" name="roleID">
+          <mat-option *ngFor="let role of roles" [value]="role.roleID">
+            {{role.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
       <button type="submit" color="primary" mat-button>Add</button> 
     </form>
   </mat-expansion-panel>
