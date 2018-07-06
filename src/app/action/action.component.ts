@@ -280,4 +280,10 @@ export class ActionComponent implements OnInit {
     }
     this.router.navigate(['/edit', this.task.parentTaskID]);
   }
+
+  closeDialog() {
+    if (this.dialogRef) {
+      this.dialogRef.close();
+    }
+  }
 }

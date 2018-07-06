@@ -53,6 +53,9 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.potService.potsGetDomains().subscribe(res => {
+      console.log(res);
+    })
     this.potService.getOutstandingTasks(this.userService.getUserName()).subscribe(res => {
       this.outstandingTasks = res;
     })
@@ -132,7 +135,8 @@ export class DashboardComponent implements OnInit {
 
   openActionTask(id) {
     let dialogRef = this.dialog.open(ActionComponent, {
-      data: {actionTaskID: id}
+      data: {actionTaskID: id},
+      width: '1000px',
     });
 
     dialogRef.afterClosed().subscribe(res => {

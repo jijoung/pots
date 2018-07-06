@@ -1,6 +1,6 @@
 <mat-card>
   <!-- <mat-card-title>Task Action</mat-card-title> -->
-  <mat-card-content>
+  <!-- <mat-card-content> -->
     <div class="container"
       fxLayout
       fxLayout.xs="column"
@@ -33,7 +33,7 @@
           </div>
         </mat-list>
       </div>
-      <mat-divider></mat-divider>
+      <!-- <mat-divider></mat-divider> -->
       <div fxFlex="30%">
         <mat-list dense>
           <div id="wrapper">
@@ -67,7 +67,7 @@
           </mat-list-item>
         </mat-list>
       </div>
-      <mat-divider></mat-divider>
+      <!-- <mat-divider></mat-divider> -->
       <div class="center" fxFlex="45%">
         <mat-list dense>
           <mat-list-item>Notes:</mat-list-item>
@@ -90,16 +90,18 @@
           </mat-list-item>
           <mat-list-item>Reminder:</mat-list-item>
           <mat-list-item>
-            <mat-select class="full-width" placeholder="Repeat" [disabled]="!isPerformer" [(ngModel)]="task.repeatID">
-              <mat-option *ngFor="let remind of reminds" [value]="remind.key">
-                {{ remind.value }}
-              </mat-option>
-            </mat-select>
+            <mat-form-field class="full-width">
+              <mat-select placeholder="Repeat" [disabled]="!isPerformer" [(ngModel)]="task.repeatID">
+                <mat-option *ngFor="let remind of reminds" [value]="remind.key">
+                  {{ remind.value }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
           </mat-list-item>
           <mat-list-item style="float:right;">
             <button mat-button color="primary" (click)="update()">Update</button>
             <span>|</span>
-            <button mat-button routerLink="/task-calendar">Cancel</button>
+            <button mat-button routerLink="/dashboard" (click)="closeDialog()">Cancel</button>
           </mat-list-item>
           <!-- <mat-list-item></mat-list-item>
           <mat-divider></mat-divider>
@@ -110,5 +112,5 @@
         </mat-list>
       </div>
     </div>
-  </mat-card-content>
+  <!-- </mat-card-content> -->
 </mat-card>

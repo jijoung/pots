@@ -63,6 +63,7 @@ export class EditComponent implements OnInit {
   ]);
 
   ngOnInit() {
+    // console.log("role: " + this.user.getUserRole());
     this.initialize();
   }
 
@@ -127,7 +128,7 @@ export class EditComponent implements OnInit {
     //console.log(this.task);
 
     //debugger;
-    if(this.username === this.task.oUserName || this.username === this.task.soUserName) {
+    if(this.username === this.task.oUserName || this.username === this.task.soUserName || this.user.getUserRole() === "1") {
       this.isOwner = true;
     }
 

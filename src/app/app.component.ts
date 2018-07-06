@@ -49,6 +49,7 @@ export class AppComponent {
     this.isAutomationModule = false;
     this.isAdmin = false;
     this._compiler.clearCache();
+    // location.reload();
   }
 
   openTaskModule() {

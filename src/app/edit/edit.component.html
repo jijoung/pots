@@ -16,74 +16,88 @@
               <textarea matInput type="text" #message maxlength="256" placeholder="Description" [(ngModel)]="task.description" name="description"></textarea>
               <mat-hint align="start">{{message.value.length}} / 256</mat-hint>
             </mat-form-field>
-            <div class="top-padding">
-              <mat-select class="task-full-width" placeholder="Department" [(ngModel)]="task.departmentID" name="department">
+
+            <mat-form-field class="task-full-width" >
+              <mat-select placeholder="Department" [(ngModel)]="task.departmentID" name="department">
                 <mat-option *ngFor="let department of departments" [value]="department.departmentID">
                   {{department.name}}
                 </mat-option>
               </mat-select>
-            </div>
-            <div class="top-padding">
-              <mat-select class="task-full-width" placeholder="Category" [(ngModel)]="task.categoryID" name="category">
+            </mat-form-field>
+
+            <mat-form-field class="task-full-width">
+              <mat-select placeholder="Category" [(ngModel)]="task.categoryID" name="category">
                 <mat-option *ngFor="let category of categories" [value]="category.categoryID">
                   {{category.name}}
                 </mat-option>
               </mat-select>
-            </div>
+            </mat-form-field>
           </div>
           <div class="item" fxFlex="37.5%">
             <div id="wrapper">
               <div id="first" fxFlex="50%">
-                <mat-select class="task-full-width" placeholder="Owner" [(ngModel)]="task.ownerID" name="owner">
-                  <mat-option *ngFor="let owner of owners" [value]="owner.userID">
-                    {{owner.firstName}} {{owner.lastName}}
-                  </mat-option>
-                </mat-select>
+                <mat-form-field class="task-full-width">
+                  <mat-select placeholder="Owner" [(ngModel)]="task.ownerID" name="owner">
+                    <mat-option *ngFor="let owner of owners" [value]="owner.userID">
+                      {{owner.firstName}} {{owner.lastName}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
               <div id="second" fxFlex="50%">
-                <mat-select class="task-full-width" placeholder="Performer" [(ngModel)]="task.performerID" name="performer">
-                  <mat-option *ngFor="let performer of performers" [value]="performer.userID">
-                    {{performer.firstName}} {{performer.lastName}}
-                  </mat-option>
-                </mat-select>
+                <mat-form-field  class="task-full-width">
+                  <mat-select placeholder="Performer" [(ngModel)]="task.performerID" name="performer">
+                    <mat-option *ngFor="let performer of performers" [value]="performer.userID">
+                      {{performer.firstName}} {{performer.lastName}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
             </div>
             <div id="wrapper">
               <div *ngIf="task.secondaryOwner" id="first" fxFlex="50%">
-                <mat-select class="task-full-width" disabled placeholder="Secondary Owner" [(ngModel)]="task.secondaryOwner" name="secondaryOwner">
-                  <mat-option [value]="task.secondaryOwner">{{task.secondaryOwner}}</mat-option>
-                </mat-select>
+                <mat-form-field class="task-full-width">
+                  <mat-select disabled placeholder="Secondary Owner" [(ngModel)]="task.secondaryOwner" name="secondaryOwner">
+                    <mat-option [value]="task.secondaryOwner">{{task.secondaryOwner}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
               <div *ngIf="task.secondaryPerformer" id="second" fxFlex="50%">
-                <mat-select class="task-full-width" disabled placeholder="Secondary Performer" [(ngModel)]="task.secondaryPerformer" name="secondaryPerformer">
-                  <mat-option [value]="task.secondaryPerformer">{{task.secondaryPerformer}}</mat-option>
-                </mat-select>
+                <mat-form-field class="task-full-width">
+                  <mat-select disabled placeholder="Secondary Performer" [(ngModel)]="task.secondaryPerformer" name="secondaryPerformer">
+                    <mat-option [value]="task.secondaryPerformer">{{task.secondaryPerformer}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
             </div>
-            <div class="top-padding" id="wrapper">
+            <div id="wrapper">
               <div id="first" fxFlex="50%">
-                <mat-select class="task-full-width" placeholder="Reviewer" [(ngModel)]="task.reviewerID" name="reviewer">  
-                  <mat-option *ngFor="let reviewer of reviewers" [value]="reviewer.userID">
-                    {{reviewer.firstName}} {{reviewer.lastName}}
-                  </mat-option>
-                </mat-select> 
+                <mat-form-field class="task-full-width">
+                  <mat-select placeholder="Reviewer" [(ngModel)]="task.reviewerID" name="reviewer">  
+                    <mat-option *ngFor="let reviewer of reviewers" [value]="reviewer.userID">
+                      {{reviewer.firstName}} {{reviewer.lastName}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
               <div id="second" fxFlex="50%">
-                <mat-select class="task-full-width" placeholder="Approver" [(ngModel)]="task.approverID" name="approver">  
-                  <mat-option *ngFor="let approver of approvers" [value]="approver.userID">
-                    {{approver.firstName}} {{approver.lastName}}
-                  </mat-option>
-                </mat-select>               
+                <mat-form-field class="task-full-width">
+                  <mat-select placeholder="Approver" [(ngModel)]="task.approverID" name="approver">  
+                    <mat-option *ngFor="let approver of approvers" [value]="approver.userID">
+                      {{approver.firstName}} {{approver.lastName}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>             
               </div>
             </div>
-            <div class="top-padding">
-              <mat-select class="task-full-width" placeholder="Frequency" [(ngModel)]="task.frequencyID" name="frequency">
+            <mat-form-field class="task-full-width">
+              <mat-select placeholder="Frequency" [(ngModel)]="task.frequencyID" name="frequency">
                 <mat-option *ngFor="let frequency of frequencies" [value]="frequency.frequencyID">
                   {{frequency.period}}
                 </mat-option>
               </mat-select>
-            </div>
-            <div class="top-padding" id="wrapper">
+            </mat-form-field>
+            <div id="wrapper">
               <div id="first" fxFlex="50%">
                 <mat-form-field class="task-full-width">
                   <input matInput [matDatepicker]="startDate" placeholder="Start date" [(ngModel)]="task.startDate" name="startDate">

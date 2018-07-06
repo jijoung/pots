@@ -23,6 +23,10 @@ export class PotService {
     return this._http.get(this.api_url + 'GetAllUsers?domainID=' + domainID, this.options).map(res => res.json());
   }
 
+  potsGetDomains() {
+    return this._http.get(this.api_url + 'GetDomain', this.options).map(res => res.json());
+  }
+
   potsGetDepartments(username) {
     return this._http.get(this.api_url + 'GetDepartments?username=' + username, this.options).map(res => res.json());
   }
